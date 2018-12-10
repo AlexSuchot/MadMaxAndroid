@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="buttonTextSize">24dp</dimen>
+    <dimen name="buttonWidth">300dp</dimen>
+    <dimen name="buttonHeight">50dp</dimen>
+
+    <dimen name="inputBookingWidth">350dp</dimen>
+    <dimen name="inputBookingHeight">45dp</dimen>
+</resources>

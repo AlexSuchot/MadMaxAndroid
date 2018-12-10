@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MyProfileActivity"
+            android:label="@string/profil"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SearchVehiculeActivity"
+            android:label="Recherche de véhicule"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
