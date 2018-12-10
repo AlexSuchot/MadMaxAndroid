@@ -28,7 +28,8 @@
         <activity
             android:name=".SearchVehiculeActivity"
             android:label="Recherche de véhicule"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>
