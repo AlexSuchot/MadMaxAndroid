@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MadMax</string>
+    <string name="booking">Mes réservations</string>
+    <string name="searchVehicle">Recherche de véhicule</string>
+
 </resources>
