@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Formatter;
 
 public class MainActivity extends AppCompatActivity {
     private Button profilButton = null;

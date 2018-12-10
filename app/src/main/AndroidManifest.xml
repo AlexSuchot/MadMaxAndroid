@@ -21,7 +21,6 @@
         <activity
             android:name=".BookingActivity"
             android:label="@string/booking" />
-        <activity android:name=".SearchVehiculeActivity"></activity>
         <activity
             android:name=".MyProfileActivity"
             android:label="@string/profil"
