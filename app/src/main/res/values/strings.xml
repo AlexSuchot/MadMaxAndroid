@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Mad Rental</string>
-    <string name="bookingButtonName">Mes réservations</string>
     <string name="profil">Mon profil</string>
     <string name="textSearch">Lancer une recherche :</string>
     <string name="searchButton">Rechercher</string>
 
     <string name="beginBooking">Date de début de réservation</string>
     <string name="endOfBooking">Date de fin de réservation</string>
+
+    <string name="booking">Mes réservations</string>
+    <string name="searchVehicle">Recherche de véhicule</string>
 
 </resources>
