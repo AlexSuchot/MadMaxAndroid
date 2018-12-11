@@ -29,7 +29,7 @@ public class BookingActivity extends AppCompatActivity
             databaseHelper.getReadableDatabase();
 
             // accès à la base de données :
-            List<Vehicle> listVehicle = VehiclesDAO.getListVehicles(this);
+            List<Booking> listBooking = BookingsDAO.getListBookings(this);
 
             // vues :
             recyclerView = findViewById(R.id.list_vehicles);
@@ -43,7 +43,7 @@ public class BookingActivity extends AppCompatActivity
             recyclerView.setLayoutManager(layoutManager);
 
             // adapter :
-            bookingAdapter = new BookingAdapter(this, listVehicle);
+            bookingAdapter = new BookingAdapter(this, listBooking);
             recyclerView.setAdapter(bookingAdapter);
         }
     }

@@ -11,7 +11,7 @@ import com.speleize.alexl.madmax.DatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehiclesDAO
+public class BookingsDAO
 {
 
     /**
@@ -19,14 +19,14 @@ public class VehiclesDAO
      * @param context Context
      * @return Liste de Vehicle
      */
-    public static List<Vehicle> getListVehicles(Context context)
+    public static List<Booking> getListBookings(Context context)
     {
         // projection (colonnes utilisées après la requète) :
-        String[] projection = {BaseContrat.VehiclesContrat._ID,
-                BaseContrat.VehiclesContrat.COLONNE_NOM};
+        String[] projection = {BaseContrat.BookingsContrat._ID,
+                BaseContrat.BookingsContrat.COLONNE_NOM};
 
         // tri :
-        String tri = BaseContrat.VehiclesContrat.COLONNE_NOM + " ASC " ;
+        String tri = BaseContrat.BookingsContrat.COLONNE_NOM + " ASC " ;
 
         // accès en lecture (query) :
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
@@ -34,7 +34,7 @@ public class VehiclesDAO
 
         // requête :
         Cursor cursor = db.query(
-                BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES,	// table sur laquelle faire la requète
+                BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING,	// table sur laquelle faire la requète
                 projection,								// colonnes à retourner
                 null,							// colonnes pour la clause WHERE (inactif)
                 null,						// valeurs pour la clause WHERE (inactif)
@@ -44,7 +44,7 @@ public class VehiclesDAO
                 null);								// LIMIT (inactif)
 
         // construction de la liste de mémos
-        List<Vehicle> listVehicles = new ArrayList<>();
+        List<Booking> listBooking = new ArrayList<>();
         if (cursor != null)
         {
             try
@@ -53,7 +53,13 @@ public class VehiclesDAO
                 while (!cursor.isAfterLast())
                 {
                     // conversion des données remontées en un objet métier :
-                    listVehicles.add(new Vehicle(cursor.getString(cursor.getColumnIndex(BaseContrat.VehiclesContrat.COLONNE_NOM))));
+                    listBooking.add(new Booking(
+                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_NOM )),
+                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_IMAGE )),
+                            cursor.getFloat(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE )),
+                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_BEGIN )),
+                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_END ))
+                            ));
                     cursor.moveToNext();
                 }
             }
@@ -67,7 +73,7 @@ public class VehiclesDAO
             }
         }
 
-        return listVehicles;
+        return listBooking;
     }
 
     /**
@@ -84,10 +90,9 @@ public class VehiclesDAO
 
         // objet de valeurs :
         ContentValues values = new ContentValues();
-        values.put(BaseContrat.VehiclesContrat.COLONNE_NOM, nom);
+        values.put(BaseContrat.BookingsContrat.COLONNE_NOM, nom);
 
         // ajout :
-        return db.insert(BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES, null, values);
+        return db.insert(BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING, null, values);
     }
-
 }

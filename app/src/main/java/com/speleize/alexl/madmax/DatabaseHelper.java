@@ -10,11 +10,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
     // Constantes :
     private static final String NOM_BASE = "madmax.db";
     private static final int VERSION = 1;
-    private static final String CREATE_TABLE_VEHICLES = "CREATE TABLE " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " ("
-            + BaseContrat.VehiclesContrat._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + BaseContrat.VehiclesContrat.COLONNE_NOM + " TEXT NOT NULL "
+    private static final String CREATE_TABLE_BOOKING = "CREATE TABLE " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " ("
+            + BaseContrat.BookingsContrat._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BaseContrat.BookingsContrat.COLONNE_NOM + " TEXT NOT NULL, "
+            + BaseContrat.BookingsContrat.COLONNE_IMAGE + " TEXT NOT NULL, "
+            + BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE + " FLOAT NOT NULL, "
+            + BaseContrat.BookingsContrat.COLONNE_BEGIN + " TEXT NOT NULL, "
+            + BaseContrat.BookingsContrat.COLONNE_END + " TEXT NOT NULL, "
             + ")";
-
 
     /**
      * Constructeur.
@@ -28,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL(CREATE_TABLE_VEHICLES);
+        db.execSQL(CREATE_TABLE_BOOKING);
 //        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Patates')");
 //        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Avocat')");
 //        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Shampooing')");
@@ -52,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        db.execSQL("DROP TABLE IF EXISTS " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES);
+        db.execSQL("DROP TABLE IF EXISTS " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING);
         onCreate(db);
     }
 

@@ -32,7 +32,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     @Override
     public VehicleViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicle_item_list, parent, false);
+        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_vehicule, parent, false);
         return new VehicleViewHolder(viewVehicle);
     }
 
@@ -84,7 +84,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
         TextView textViewWording = null;
         VehicleViewHolder(final View itemView) {
             super(itemView);
-            textViewWording = itemView.findViewById(R.id.wording_vehicle);
+            textViewWording = itemView.findViewById(R.id.vehicle_nom);
         }
     }
 }

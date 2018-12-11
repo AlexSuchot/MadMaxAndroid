@@ -60,9 +60,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Boutons de directions vers les différentes pages :
-    public void goToProfile(View view) {
+    public void goToBooking(View view) {
+        profilButton = findViewById(R.id.bookingButton);
+        Intent intent = new Intent(this, BookingActivity.class);
+        startActivity(intent);
+    }
 
-        profilButton = findViewById(R.id.profilButton);
+    // Boutons de directions vers les différentes pages :
+    public void goToProfile(View view) {
+        profilButton = findViewById(R.id.profileButton);
         Intent intent = new Intent(this, MyProfileActivity.class);
         startActivity(intent);
     }

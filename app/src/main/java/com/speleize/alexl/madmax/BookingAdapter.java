@@ -15,46 +15,46 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
     private BookingActivity bookingActivity = null;
 
     // list d'objets métier :
-    private List<Vehicle> listVehicle = null;
+    private List<Booking> listBooking = null;
 
 
     /**
      * Constructeur.
      * @param bookingActivity BookingActivity
-     * @param listVehicle list de mémos
+     * @param listBooking list de mémos
      */
-    public BookingAdapter(BookingActivity bookingActivity, List<Vehicle> listVehicle)
+    public BookingAdapter(BookingActivity bookingActivity, List<Booking> listBooking)
     {
         this.bookingActivity = bookingActivity;
-        this.listVehicle = listVehicle;
+        this.listBooking = listBooking;
     }
 
     @Override
     public VehicleViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicle_item_list, parent, false);
+        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_booking, parent, false);
         return new VehicleViewHolder(viewVehicle);
     }
 
     @Override
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
-        holder.textViewWording.setText(listVehicle.get(position).nom);
+        holder.textViewWording.setText(listBooking.get(position).nom);
     }
 
     @Override
     public int getItemCount()
     {
-        return listVehicle.size();
+        return listBooking.size();
     }
 
     /**
      * Ajout d'un mémo à la list.
-     * @param listVehicle list de Vehicle
+     * @param listBooking list de Vehicle
      */
-    public void actualiserVehicles(List<Vehicle> listVehicle)
+    public void actualiserVehicles(List<Booking> listBooking)
     {
-        this.listVehicle = listVehicle;
+        this.listBooking = listBooking;
         notifyDataSetChanged();
     }
 
@@ -63,9 +63,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
      * @param position Position dans la list
      * @return Vehicle
      */
-    public Vehicle getVehicleParPosition(int position)
+    public Booking getVehicleParPosition(int position)
     {
-        return listVehicle.get(position);
+        return listBooking.get(position);
     }
 
 
@@ -77,7 +77,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
         TextView textViewWording = null;
         VehicleViewHolder(final View itemView) {
             super(itemView);
-            textViewWording = itemView.findViewById(R.id.wording_vehicle);
+            textViewWording = itemView.findViewById(R.id.vehicle_nom);
         }
     }
 }
