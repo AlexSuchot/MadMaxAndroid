@@ -21,7 +21,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
     /**
      * Constructeur.
      * @param bookingActivity BookingActivity
-     * @param listBooking list de mémos
+     * @param listBooking list des bookings
      */
     public BookingAdapter(BookingActivity bookingActivity, List<Booking> listBooking)
     {
@@ -39,7 +39,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
     @Override
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
-        holder.textViewWording.setText(listBooking.get(position).nom);
+        holder.vehicleNom.setText(listBooking.get(position).nom);
+        holder.vehiclePrixjournalierbase.setText(listBooking.get(position).prixjournalierbase);
+
+        holder.vehicleBegin.setText(listBooking.get(position).begin);
+        holder.vehicleEnd.setText(listBooking.get(position).end);
+
     }
 
     @Override
@@ -74,10 +79,19 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
      */
     class VehicleViewHolder extends RecyclerView.ViewHolder
     {
-        TextView textViewWording = null;
+        TextView vehicleNom = null;
+        TextView vehiclePrixjournalierbase = null;
+
+        TextView vehicleBegin = null;
+        TextView vehicleEnd = null;
+
         VehicleViewHolder(final View itemView) {
             super(itemView);
-            textViewWording = itemView.findViewById(R.id.vehicle_nom);
+            vehicleNom = itemView.findViewById(R.id.vehicle_nom);
+            vehiclePrixjournalierbase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
+
+            vehicleBegin = itemView.findViewById(R.id.vehicle_begin);
+            vehicleEnd = itemView.findViewById(R.id.vehicle_end);
         }
     }
 }

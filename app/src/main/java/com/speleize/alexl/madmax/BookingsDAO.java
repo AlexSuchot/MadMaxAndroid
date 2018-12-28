@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.speleize.alexl.madmax.BaseContrat;
 import com.speleize.alexl.madmax.DatabaseHelper;
@@ -15,7 +16,7 @@ public class BookingsDAO
 {
 
     /**
-     * Retourne la liste de mémos.
+     * Retourne la liste des bookings.
      * @param context Context
      * @return Liste de Vehicle
      */
@@ -23,7 +24,13 @@ public class BookingsDAO
     {
         // projection (colonnes utilisées après la requète) :
         String[] projection = {BaseContrat.BookingsContrat._ID,
-                BaseContrat.BookingsContrat.COLONNE_NOM};
+                BaseContrat.BookingsContrat.COLONNE_NOM,
+                BaseContrat.BookingsContrat.COLONNE_IMAGE,
+                BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE,
+                BaseContrat.BookingsContrat.COLONNE_BEGIN,
+                BaseContrat.BookingsContrat.COLONNE_END,
+
+        };
 
         // tri :
         String tri = BaseContrat.BookingsContrat.COLONNE_NOM + " ASC " ;
@@ -56,7 +63,7 @@ public class BookingsDAO
                     listBooking.add(new Booking(
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_NOM )),
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_IMAGE )),
-                            cursor.getFloat(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE )),
+                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE )),
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_BEGIN )),
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_END ))
                             ));
@@ -72,7 +79,7 @@ public class BookingsDAO
                 cursor.close();
             }
         }
-
+        Log.i("Bigeard", String.valueOf(listBooking));
         return listBooking;
     }
 

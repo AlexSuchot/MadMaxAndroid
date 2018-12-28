@@ -5,7 +5,7 @@ import java.util.Date;
 public class Booking {
     public String nom;
     public String image;
-    public Float prixjournalierbase;
+    public String prixjournalierbase;
     public String begin;
     public String end;
 
@@ -13,7 +13,7 @@ public class Booking {
     public Booking(
             String nom,
             String image,
-            Float prixjournalierbase,
+            String prixjournalierbase,
             String begin,
             String end
     )

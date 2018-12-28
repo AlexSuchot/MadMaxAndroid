@@ -32,24 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_TABLE_BOOKING);
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Patates')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Avocat')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Shampooing')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Riz')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Chocolat')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Oeufs')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Lait')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Pain')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Pâtes')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Viande')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Beurre')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Salade')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Oignons')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Raisins')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Sauce')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Croissant')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Pizza')");
-//        db.execSQL("INSERT INTO " + BaseContrat.VehiclesContrat.TABLE_TABLE_VEHICLES + " VALUES (NULL, 'Chips')");
+        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Buggy', 'zoombuggyjpg', '29', '11/11/2018', '29/12/2018')");
     }
 
     @Override

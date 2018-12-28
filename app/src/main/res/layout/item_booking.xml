@@ -1,15 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/vehicle_image"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/vehicle_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="nom"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/vehicle_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/char_t"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="-"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/vehicle_nom"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/vehicle_prixjournalierbase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="0"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/char_t"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="€"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/vehicle_prixjournalierbase"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/layout_begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_end"
+        app:layout_constraintStart_toEndOf="@+id/vehicle_image"
+        app:layout_constraintTop_toBottomOf="@+id/vehicle_nom">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="début: " />
+
+        <TextView
+            android:id="@+id/vehicle_begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/layout_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vehicle_image">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fin : " />
+
+        <TextView
+            android:id="@+id/vehicle_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date" />
+
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -28,10 +28,6 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     {
         this.searchVehiculeActivity = searchVehiculeActivity;
         this.listVehicle = listVehicle;
-//        Log.i("Bigeard", listVehicle.toString());
-        Log.i("Bigeard", "yes");
-
-
     }
 
     @Override
