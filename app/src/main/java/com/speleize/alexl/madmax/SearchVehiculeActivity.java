@@ -36,6 +36,11 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_vehicule);
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("beginBooking");
+        String newString2 = extras.getString("endOfBooking");
+        Log.i("yolo",newString);
+        Log.i("yolo2",newString2);
 
         // sauvegarde de la position en shared preferences :
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);

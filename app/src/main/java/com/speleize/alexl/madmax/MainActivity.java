@@ -13,6 +13,8 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private Button profilButton = null;
@@ -70,32 +72,42 @@ public class MainActivity extends AppCompatActivity {
 
         String strBeginBooking = beginBooking.getText().toString();
         String strEndOfBooking = endOfBooking.getText().toString();
-        String regexDate = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
-        profilButton = findViewById(R.id.searchButton);
 
-        // On créer des formats de date pour récupérer le nombre de jour entre les 2 :
-        SimpleDateFormat regex = new SimpleDateFormat(regexDate);
+        // Expression régulière récupère la date et la vérifie si elle est au bon format :
+        Pattern regexDate = Pattern.compile("^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+        String regexString = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
+
+        Matcher  matcherBegin = regexDate.matcher(strBeginBooking);
+        Matcher matcherEnd = regexDate.matcher(strEndOfBooking);
+        profilButton = findViewById(R.id.searchButton);
+        String beginBookingToString = matcherBegin.toString();
+        String endOfBookingToString = matcherEnd.toString();
+        
         try {
 
             // Vérif si les 2 dates sont rempli :
-            if (strBeginBooking.matches(regexDate) && strEndOfBooking.matches(regexDate)) {
+            if (matcherBegin.matches() && matcherEnd.matches()) {
                 Intent intent = new Intent(this, SearchVehiculeActivity.class);
 
+                intent.putExtra("beginBooking", strBeginBooking);
+                intent.putExtra("endOfBooking", strEndOfBooking);
+
+                //long numberOfDays = dateBeginBooking.getTime() - dateEndOfBooking.getTime();
+                //intent.putExtra("numberOfDays", numberOfDays);
+                startActivity(intent);
                 // On récupère le nombre de jour :
                 Date dateBeginBooking = regex.parse(strBeginBooking);
                 Date dateEndOfBooking = regex.parse(strEndOfBooking);
-                long numberOfDays = dateBeginBooking.getTime() - dateEndOfBooking.getTime();
 
 
                 // On put les valeurs des dates pour les récupérer plus tard :
-                intent.putExtra("beginBooking", strBeginBooking);
-                intent.putExtra("endOfBooking", strEndOfBooking);
-                intent.putExtra("numberOfDays", numberOfDays);
-                startActivity(intent);
 
-            } else if (!strBeginBooking.matches(regexDate)) {
+
+
+
+            } else if (!matcherBegin.matches()) {
                 beginBooking.setError("Mauvais format de date");
-            } else if (!strEndOfBooking.matches(regexDate)) {
+            } else if (matcherEnd.matches()) {
                 endOfBooking.setError("Mauvais format de date");
             }
 
