@@ -1,6 +1,7 @@
 package com.speleize.alexl.madmax;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,10 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     {
         this.searchVehiculeActivity = searchVehiculeActivity;
         this.listVehicle = listVehicle;
+//        Log.i("Bigeard", listVehicle.toString());
+        Log.i("Bigeard", "yes");
+
+
     }
 
     @Override
@@ -59,7 +64,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
      * Ajout d'un mémo à la list.
      * @param listVehicle list de Vehicle
      */
-    public void actualiserVehicles(List<Vehicle> listVehicle)
+        public void actualiserVehicles(List<Vehicle> listVehicle)
     {
         this.listVehicle = listVehicle;
         notifyDataSetChanged();
@@ -85,6 +90,10 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
         VehicleViewHolder(final View itemView) {
             super(itemView);
             textViewWording = itemView.findViewById(R.id.vehicle_nom);
+//            textViewWording = itemView.findViewById(R.id.vehicle_prixjournalierbase);
+//            textViewWording = itemView.findViewById(R.id.vehicle_categorieco2);
+
+
         }
     }
 }

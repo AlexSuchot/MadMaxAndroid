@@ -48,6 +48,7 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
         // paramètres :
         RequestParams requestParams = new RequestParams();
+        Log.i("Bigeard", "HTTP");
 
         client.get(LIEN, requestParams, new AsyncHttpResponseHandler() {
 
@@ -61,17 +62,27 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                 {
                     JSONArray jsonArray = new JSONArray(retour);
                     List<Vehicle> listVehicle = new ArrayList<>();
+                    Log.i("Bigeard", "plus");
 
                     for (int i = 0 ; i < jsonArray.length() ; i++) {
+
+                        Log.i("Bigeard", jsonArray.toString());
+
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        Log.i("Bigeard", jsonObject.toString());
+
                         Vehicle vehicle = gson.fromJson(jsonObject.toString(), Vehicle.class);
+
+                        Log.i("Bigeard", vehicle.nom);
+
                         listVehicle.add(vehicle);
+
                     }
-                    Log.i("Bigeard", listVehicle.toString());
 
                     for (Vehicle vehicle : listVehicle)
                     {
-
+                        Log.i("Bigeard", vehicle.nom);
                     }
 
                     recyclerView = findViewById(R.id.list_vehicles);
@@ -86,6 +97,8 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                     // adapter :
                     searchVehiculeAdapter = new SearchVehiculeAdapter(SearchVehiculeActivity.this, listVehicle);
                     recyclerView.setAdapter(searchVehiculeAdapter);
+
+                    searchVehiculeAdapter.actualiserVehicles(listVehicle);
                 }
                 catch (Exception e)
                 {

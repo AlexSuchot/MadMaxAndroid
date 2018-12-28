@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             + BaseContrat.BookingsContrat.COLONNE_IMAGE + " TEXT NOT NULL, "
             + BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE + " FLOAT NOT NULL, "
             + BaseContrat.BookingsContrat.COLONNE_BEGIN + " TEXT NOT NULL, "
-            + BaseContrat.BookingsContrat.COLONNE_END + " TEXT NOT NULL, "
+            + BaseContrat.BookingsContrat.COLONNE_END + " TEXT NOT NULL "
             + ")";
 
     /**
