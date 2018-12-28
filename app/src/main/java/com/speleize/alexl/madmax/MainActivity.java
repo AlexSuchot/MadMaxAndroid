@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,36 +69,36 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void searchVehicule(View view) {
+    public void searchVehicule(View view) throws ParseException {
+
+        profilButton = findViewById(R.id.searchButton);
 
         String strBeginBooking = beginBooking.getText().toString();
         String strEndOfBooking = endOfBooking.getText().toString();
 
         // Expression régulière récupère la date et la vérifie si elle est au bon format :
         Pattern regexDate = Pattern.compile("^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
-        String regexString = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
 
         Matcher  matcherBegin = regexDate.matcher(strBeginBooking);
         Matcher matcherEnd = regexDate.matcher(strEndOfBooking);
-        profilButton = findViewById(R.id.searchButton);
-        String beginBookingToString = matcherBegin.toString();
-        String endOfBookingToString = matcherEnd.toString();
-        
-        try {
+
 
             // Vérif si les 2 dates sont rempli :
             if (matcherBegin.matches() && matcherEnd.matches()) {
+
                 Intent intent = new Intent(this, SearchVehiculeActivity.class);
+
+                DateFormat format = new SimpleDateFormat("^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+                Date dateBegin = format.parse(strBeginBooking);
+                Date dateEnd = format.parse(strEndOfBooking);
+                long numberOfDays = dateBegin.getTime() - dateEnd.getTime();
 
                 intent.putExtra("beginBooking", strBeginBooking);
                 intent.putExtra("endOfBooking", strEndOfBooking);
-
-                //long numberOfDays = dateBeginBooking.getTime() - dateEndOfBooking.getTime();
-                //intent.putExtra("numberOfDays", numberOfDays);
+                intent.putExtra("numberOfDays", numberOfDays);
                 startActivity(intent);
                 // On récupère le nombre de jour :
-                Date dateBeginBooking = regex.parse(strBeginBooking);
-                Date dateEndOfBooking = regex.parse(strEndOfBooking);
+
 
 
                 // On put les valeurs des dates pour les récupérer plus tard :
@@ -111,9 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 endOfBooking.setError("Mauvais format de date");
             }
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
 
 
     }

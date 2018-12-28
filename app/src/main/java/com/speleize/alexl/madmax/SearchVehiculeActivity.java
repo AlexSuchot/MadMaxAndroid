@@ -39,8 +39,10 @@ public class SearchVehiculeActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String newString = extras.getString("beginBooking");
         String newString2 = extras.getString("endOfBooking");
+        String newString3 = extras.getString("numberOfDays");
         Log.i("yolo",newString);
         Log.i("yolo2",newString2);
+        Log.i("yolo3",newString3);
 
         // sauvegarde de la position en shared preferences :
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
