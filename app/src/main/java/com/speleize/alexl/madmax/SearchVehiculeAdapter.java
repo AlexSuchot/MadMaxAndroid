@@ -44,13 +44,9 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     @Override
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
-        holder.textViewWording.setText(listVehicle.get(position).nom);
-//        holder.textViewWording.setText(listVehicle.get(position).image);
-//        holder.textViewWording.setText(listVehicle.get(position).agemin);
-//        holder.textViewWording.setText(listVehicle.get(position).categorieco2);
-//        holder.textViewWording.setText(listVehicle.get(position).promotion);
-//        holder.textViewWording.setText(listVehicle.get(position).disponible.toString());
-//        holder.textViewWording.setText(listVehicle.get(position).prixjournalierbase.toString());
+        holder.vehicleNom.setText(listVehicle.get(position).nom);
+        holder.vehiclePrixJournalierBase.setText(listVehicle.get(position).prixjournalierbase.toString());
+        holder.vehicleCategorieCo2.setText(listVehicle.get(position).categorieco2);
 
     }
 
@@ -86,12 +82,15 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
      */
     class VehicleViewHolder extends RecyclerView.ViewHolder
     {
-        TextView textViewWording = null;
+        TextView vehicleNom = null;
+        TextView vehiclePrixJournalierBase = null;
+        TextView vehicleCategorieCo2 = null;
+
         VehicleViewHolder(final View itemView) {
             super(itemView);
-            textViewWording = itemView.findViewById(R.id.vehicle_nom);
-//            textViewWording = itemView.findViewById(R.id.vehicle_prixjournalierbase);
-//            textViewWording = itemView.findViewById(R.id.vehicle_categorieco2);
+            vehicleNom = itemView.findViewById(R.id.vehicle_nom);
+            vehiclePrixJournalierBase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
+            vehicleCategorieCo2 = itemView.findViewById(R.id.vehicle_categorieco2);
 
 
         }

@@ -3,6 +3,7 @@ package com.speleize.alexl.madmax;
 import java.util.List;
 
 public class Vehicle {
+    public Integer id;
     public String nom;
     public String image;
     public Integer disponible;
@@ -10,12 +11,13 @@ public class Vehicle {
     public Integer promotion;
     public Integer agemin;
     public String categorieco2;
-    public List<String> equipements;
+    public List<Equipements> equipements;
     public List<Options> options;
 
 
     // Constructor :
     public Vehicle(
+            Integer id,
             String nom,
             String image,
             Integer disponible,
@@ -23,10 +25,11 @@ public class Vehicle {
             Integer promotion,
             Integer agemin,
             String categorieco2,
-            List<String> equipements,
+            List<Equipements> equipements,
             List<Options> options
     )
     {
+        this.id = id;
         this.nom = nom;
         this.image = image;
         this.disponible = disponible;

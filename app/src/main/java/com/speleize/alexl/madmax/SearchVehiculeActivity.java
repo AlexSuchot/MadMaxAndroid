@@ -62,7 +62,7 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                 {
                     JSONArray jsonArray = new JSONArray(retour);
                     List<Vehicle> listVehicle = new ArrayList<>();
-                    Log.i("Bigeard", "plus");
+                    Log.i("Bigeard", String.valueOf(jsonArray.length()));
 
                     for (int i = 0 ; i < jsonArray.length() ; i++) {
 

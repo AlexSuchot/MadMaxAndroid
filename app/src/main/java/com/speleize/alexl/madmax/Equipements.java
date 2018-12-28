@@ -1,19 +1,16 @@
 package com.speleize.alexl.madmax;
 
-public class Options {
+public class Equipements {
     public Integer id;
     public String nom;
-    public Float prix;
 
     // Constructor :
-    public Options(
+    public Equipements(
             Integer id,
-            String nom,
-            Float prix
+            String nom
     )
     {
         this.id = id;
         this.nom = nom;
-        this.prix = prix;
     }
 }
