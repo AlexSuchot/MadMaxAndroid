@@ -46,11 +46,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
     @Override
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
-        holder.vehicleNom.setText(listBooking.get(position).nom);
-        holder.vehiclePrixjournalierbase.setText(listBooking.get(position).prixjournalierbase);
-
-        holder.vehicleBegin.setText(listBooking.get(position).begin);
-        holder.vehicleEnd.setText(listBooking.get(position).end);
+        holder.vehicleNom.setText(listBooking.get(position).nom + " - " + listBooking.get(position).prixjournalierbase + " €");
+        holder.vehicleBegin.setText("début: " + listBooking.get(position).begin);
+        holder.vehicleEnd.setText("fin : " + listBooking.get(position).end);
 
         // chargement de l'image :
         Picasso.with(bookingActivity)
@@ -104,7 +102,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
             vehicleImage = itemView.findViewById(R.id.vehicle_image);
 
             vehicleNom = itemView.findViewById(R.id.vehicle_nom);
-            vehiclePrixjournalierbase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
 
             vehicleBegin = itemView.findViewById(R.id.vehicle_begin);
             vehicleEnd = itemView.findViewById(R.id.vehicle_end);

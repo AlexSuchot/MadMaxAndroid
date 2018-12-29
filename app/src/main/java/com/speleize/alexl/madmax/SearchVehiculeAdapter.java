@@ -46,8 +46,15 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
         holder.vehicleNom.setText(listVehicle.get(position).nom);
-        holder.vehiclePrixJournalierBase.setText(listVehicle.get(position).prixjournalierbase.toString());
-        holder.vehicleCategorieCo2.setText(listVehicle.get(position).categorieco2);
+        holder.vehiclePrixJournalierBase.setText(listVehicle.get(position).prixjournalierbase.toString() + " € / jour");
+        holder.vehicleCategorieCo2.setText( "Catégorie CO2: " + listVehicle.get(position).categorieco2);
+
+        Integer promotion = listVehicle.get(position).promotion;
+
+        if(promotion != 0) {
+            holder.vehiclePromotion.setVisibility(View.VISIBLE);
+            holder.vehiclePromotion.setText(promotion.toString() + '%');
+        }
 
         // chargement de l'image :
         Picasso.with(searchVehiculeActivity)
@@ -90,6 +97,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
      */
     class VehicleViewHolder extends RecyclerView.ViewHolder
     {
+        TextView vehiclePromotion = null;
         TextView vehicleNom = null;
         TextView vehiclePrixJournalierBase = null;
         TextView vehicleCategorieCo2 = null;
@@ -98,6 +106,8 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
             super(itemView);
 
             vehicleImage = itemView.findViewById(R.id.vehicle_image);
+
+            vehiclePromotion = itemView.findViewById(R.id.vehicle_promotion);
 
             vehicleNom = itemView.findViewById(R.id.vehicle_nom);
             vehiclePrixJournalierBase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
