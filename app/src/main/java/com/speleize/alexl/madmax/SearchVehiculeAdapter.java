@@ -1,11 +1,13 @@
 package com.speleize.alexl.madmax;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     // list d'objets métier :
     private List<Vehicle> listVehicle = null;
 
+    // Image
+    private static final String LIEN_IMAGE = "http://www.denis-fremond.com/photos_art/20062014195748u38892506.JPG";
+    private ImageView vehicleImage = null;
 
     /**
      * Constructeur.
@@ -43,6 +48,13 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
         holder.vehicleNom.setText(listVehicle.get(position).nom);
         holder.vehiclePrixJournalierBase.setText(listVehicle.get(position).prixjournalierbase.toString());
         holder.vehicleCategorieCo2.setText(listVehicle.get(position).categorieco2);
+
+        // chargement de l'image :
+        Picasso.with(searchVehiculeActivity)
+                .load(LIEN_IMAGE)
+                .fit()
+                .centerInside()
+                .into(vehicleImage);
 
     }
 
@@ -84,6 +96,9 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
 
         VehicleViewHolder(final View itemView) {
             super(itemView);
+
+            vehicleImage = itemView.findViewById(R.id.vehicle_image);
+
             vehicleNom = itemView.findViewById(R.id.vehicle_nom);
             vehiclePrixJournalierBase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
             vehicleCategorieCo2 = itemView.findViewById(R.id.vehicle_categorieco2);

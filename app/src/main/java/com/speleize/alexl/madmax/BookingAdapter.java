@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,6 +19,10 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
 
     // list d'objets métier :
     private List<Booking> listBooking = null;
+
+    // Image
+    private static final String LIEN_IMAGE = "http://www.denis-fremond.com/photos_art/20062014195748u38892506.JPG";
+    private ImageView vehicleImage = null;
 
 
     /**
@@ -45,6 +52,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
         holder.vehicleBegin.setText(listBooking.get(position).begin);
         holder.vehicleEnd.setText(listBooking.get(position).end);
 
+        // chargement de l'image :
+        Picasso.with(bookingActivity)
+                .load(LIEN_IMAGE)
+                .fit()
+                .centerInside()
+                .into(vehicleImage);
     }
 
     @Override
@@ -87,6 +100,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
 
         VehicleViewHolder(final View itemView) {
             super(itemView);
+
+            vehicleImage = itemView.findViewById(R.id.vehicle_image);
+
             vehicleNom = itemView.findViewById(R.id.vehicle_nom);
             vehiclePrixjournalierbase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
 
