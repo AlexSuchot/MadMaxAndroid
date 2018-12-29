@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -74,12 +73,6 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                         Vehicle vehicle = gson.fromJson(jsonObject.toString(), Vehicle.class);
                         listVehicle.add(vehicle);
                     }
-                    Log.i("Bigeard", listVehicle.toString());
-
-                    for (Vehicle vehicle : listVehicle)
-                    {
-
-                    }
 
                     recyclerView = findViewById(R.id.list_vehicles);
 
@@ -93,6 +86,8 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                     // adapter :
                     searchVehiculeAdapter = new SearchVehiculeAdapter(SearchVehiculeActivity.this, listVehicle);
                     recyclerView.setAdapter(searchVehiculeAdapter);
+
+                    searchVehiculeAdapter.actualiserVehicles(listVehicle);
                 }
                 catch (Exception e)
                 {

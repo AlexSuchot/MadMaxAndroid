@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -15,46 +18,59 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
     private BookingActivity bookingActivity = null;
 
     // list d'objets métier :
-    private List<Vehicle> listVehicle = null;
+    private List<Booking> listBooking = null;
+
+    // Image
+    private static final String LIEN_IMAGE = "http://s519716619.onlinehome.fr/exchange/madrental/images/";
+    private ImageView vehicleImage = null;
 
 
     /**
      * Constructeur.
      * @param bookingActivity BookingActivity
-     * @param listVehicle list de mémos
+     * @param listBooking list des bookings
      */
-    public BookingAdapter(BookingActivity bookingActivity, List<Vehicle> listVehicle)
+    public BookingAdapter(BookingActivity bookingActivity, List<Booking> listBooking)
     {
         this.bookingActivity = bookingActivity;
-        this.listVehicle = listVehicle;
+        this.listBooking = listBooking;
     }
 
     @Override
     public VehicleViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicle_item_list, parent, false);
+        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_booking, parent, false);
         return new VehicleViewHolder(viewVehicle);
     }
 
     @Override
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
-        holder.textViewWording.setText(listVehicle.get(position).nom);
+        holder.vehicleNom.setText(listBooking.get(position).nom + " - " + listBooking.get(position).prixjournalierbase + " €");
+        holder.vehicleBegin.setText("début: " + listBooking.get(position).begin);
+        holder.vehicleEnd.setText("fin : " + listBooking.get(position).end);
+
+        // chargement de l'image :
+        Picasso.with(bookingActivity)
+                .load(LIEN_IMAGE + listBooking.get(position).image)
+                .fit()
+                .centerInside()
+                .into(vehicleImage);
     }
 
     @Override
     public int getItemCount()
     {
-        return listVehicle.size();
+        return listBooking.size();
     }
 
     /**
      * Ajout d'un mémo à la list.
-     * @param listVehicle list de Vehicle
+     * @param listBooking list de Vehicle
      */
-    public void actualiserVehicles(List<Vehicle> listVehicle)
+    public void actualiserVehicles(List<Booking> listBooking)
     {
-        this.listVehicle = listVehicle;
+        this.listBooking = listBooking;
         notifyDataSetChanged();
     }
 
@@ -63,9 +79,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
      * @param position Position dans la list
      * @return Vehicle
      */
-    public Vehicle getVehicleParPosition(int position)
+    public Booking getVehicleParPosition(int position)
     {
-        return listVehicle.get(position);
+        return listBooking.get(position);
     }
 
 
@@ -74,10 +90,21 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
      */
     class VehicleViewHolder extends RecyclerView.ViewHolder
     {
-        TextView textViewWording = null;
+        TextView vehicleNom = null;
+        TextView vehiclePrixjournalierbase = null;
+
+        TextView vehicleBegin = null;
+        TextView vehicleEnd = null;
+
         VehicleViewHolder(final View itemView) {
             super(itemView);
-            textViewWording = itemView.findViewById(R.id.wording_vehicle);
+
+            vehicleImage = itemView.findViewById(R.id.vehicle_image);
+
+            vehicleNom = itemView.findViewById(R.id.vehicle_nom);
+
+            vehicleBegin = itemView.findViewById(R.id.vehicle_begin);
+            vehicleEnd = itemView.findViewById(R.id.vehicle_end);
         }
     }
 }

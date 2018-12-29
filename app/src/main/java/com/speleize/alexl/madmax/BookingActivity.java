@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.List;
 
@@ -29,10 +30,9 @@ public class BookingActivity extends AppCompatActivity
             databaseHelper.getReadableDatabase();
 
             // accès à la base de données :
-            List<Vehicle> listVehicle = VehiclesDAO.getListVehicles(this);
-
+            List<Booking> listBooking = BookingsDAO.getListBookings(this);
             // vues :
-            recyclerView = findViewById(R.id.list_vehicles);
+            recyclerView = findViewById(R.id.list_bookings);
 //            editTextVehicle = findViewById(R.id.saisie_vehicle);
 
             // à ajouter pour de meilleures performances :
@@ -43,8 +43,15 @@ public class BookingActivity extends AppCompatActivity
             recyclerView.setLayoutManager(layoutManager);
 
             // adapter :
-            bookingAdapter = new BookingAdapter(this, listVehicle);
+            bookingAdapter = new BookingAdapter(this, listBooking);
             recyclerView.setAdapter(bookingAdapter);
+        }
+
+        /**
+         * Listener clic bouton valider.
+         * @param view Bouton valider
+         */
+        public void onClickBoutonValider(View view) {
         }
     }
 

@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -17,6 +20,9 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     // list d'objets métier :
     private List<Vehicle> listVehicle = null;
 
+    // Image
+    private static final String LIEN_IMAGE = "http://s519716619.onlinehome.fr/exchange/madrental/images/";
+    private ImageView vehicleImage = null;
 
     /**
      * Constructeur.
@@ -32,20 +38,30 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     @Override
     public VehicleViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicle_item_list, parent, false);
+        View viewVehicle = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_vehicule, parent, false);
         return new VehicleViewHolder(viewVehicle);
     }
 
     @Override
     public void onBindViewHolder(VehicleViewHolder holder, int position)
     {
-        holder.textViewWording.setText(listVehicle.get(position).nom);
-//        holder.textViewWording.setText(listVehicle.get(position).image);
-//        holder.textViewWording.setText(listVehicle.get(position).agemin);
-//        holder.textViewWording.setText(listVehicle.get(position).categorieco2);
-//        holder.textViewWording.setText(listVehicle.get(position).promotion);
-//        holder.textViewWording.setText(listVehicle.get(position).disponible.toString());
-//        holder.textViewWording.setText(listVehicle.get(position).prixjournalierbase.toString());
+        holder.vehicleNom.setText(listVehicle.get(position).nom);
+        holder.vehiclePrixJournalierBase.setText(listVehicle.get(position).prixjournalierbase.toString() + " € / jour");
+        holder.vehicleCategorieCo2.setText( "Catégorie CO2: " + listVehicle.get(position).categorieco2);
+
+        Integer promotion = listVehicle.get(position).promotion;
+
+        if(promotion != 0) {
+            holder.vehiclePromotion.setVisibility(View.VISIBLE);
+            holder.vehiclePromotion.setText(promotion.toString() + '%');
+        }
+
+        // chargement de l'image :
+        Picasso.with(searchVehiculeActivity)
+                .load(LIEN_IMAGE + listVehicle.get(position).image)
+                .fit()
+                .centerInside()
+                .into(vehicleImage);
 
     }
 
@@ -59,7 +75,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
      * Ajout d'un mémo à la list.
      * @param listVehicle list de Vehicle
      */
-    public void actualiserVehicles(List<Vehicle> listVehicle)
+        public void actualiserVehicles(List<Vehicle> listVehicle)
     {
         this.listVehicle = listVehicle;
         notifyDataSetChanged();
@@ -81,10 +97,23 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
      */
     class VehicleViewHolder extends RecyclerView.ViewHolder
     {
-        TextView textViewWording = null;
+        TextView vehiclePromotion = null;
+        TextView vehicleNom = null;
+        TextView vehiclePrixJournalierBase = null;
+        TextView vehicleCategorieCo2 = null;
+
         VehicleViewHolder(final View itemView) {
             super(itemView);
-            textViewWording = itemView.findViewById(R.id.wording_vehicle);
+
+            vehicleImage = itemView.findViewById(R.id.vehicle_image);
+
+            vehiclePromotion = itemView.findViewById(R.id.vehicle_promotion);
+
+            vehicleNom = itemView.findViewById(R.id.vehicle_nom);
+            vehiclePrixJournalierBase = itemView.findViewById(R.id.vehicle_prixjournalierbase);
+            vehicleCategorieCo2 = itemView.findViewById(R.id.vehicle_categorieco2);
+
+
         }
     }
 }
