@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -48,7 +47,6 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
         // paramètres :
         RequestParams requestParams = new RequestParams();
-        Log.i("Bigeard", "HTTP");
 
         client.get(LIEN, requestParams, new AsyncHttpResponseHandler() {
 
@@ -62,27 +60,11 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                 {
                     JSONArray jsonArray = new JSONArray(retour);
                     List<Vehicle> listVehicle = new ArrayList<>();
-                    Log.i("Bigeard", String.valueOf(jsonArray.length()));
 
                     for (int i = 0 ; i < jsonArray.length() ; i++) {
-
-                        Log.i("Bigeard", jsonArray.toString());
-
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                        Log.i("Bigeard", jsonObject.toString());
-
                         Vehicle vehicle = gson.fromJson(jsonObject.toString(), Vehicle.class);
-
-                        Log.i("Bigeard", vehicle.nom);
-
                         listVehicle.add(vehicle);
-
-                    }
-
-                    for (Vehicle vehicle : listVehicle)
-                    {
-                        Log.i("Bigeard", vehicle.nom);
                     }
 
                     recyclerView = findViewById(R.id.list_vehicles);

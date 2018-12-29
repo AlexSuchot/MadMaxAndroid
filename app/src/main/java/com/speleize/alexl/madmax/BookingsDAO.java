@@ -4,11 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import com.speleize.alexl.madmax.BaseContrat;
-import com.speleize.alexl.madmax.DatabaseHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +74,6 @@ public class BookingsDAO
                 cursor.close();
             }
         }
-        Log.i("Bigeard", String.valueOf(listBooking));
         return listBooking;
     }
 
