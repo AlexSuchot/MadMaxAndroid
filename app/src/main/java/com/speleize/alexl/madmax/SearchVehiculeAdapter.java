@@ -21,7 +21,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
     private List<Vehicle> listVehicle = null;
 
     // Image
-    private static final String LIEN_IMAGE = "http://www.denis-fremond.com/photos_art/20062014195748u38892506.JPG";
+    private static final String LIEN_IMAGE = "http://s519716619.onlinehome.fr/exchange/madrental/images/";
     private ImageView vehicleImage = null;
 
     /**
@@ -58,7 +58,7 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
 
         // chargement de l'image :
         Picasso.with(searchVehiculeActivity)
-                .load(LIEN_IMAGE)
+                .load(LIEN_IMAGE + listVehicle.get(position).image)
                 .fit()
                 .centerInside()
                 .into(vehicleImage);
