@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -76,44 +77,37 @@ public class MainActivity extends AppCompatActivity {
         String strBeginBooking = beginBooking.getText().toString();
         String strEndOfBooking = endOfBooking.getText().toString();
 
-        // Expression régulière récupère la date et la vérifie si elle est au bon format :
-        Pattern regexDate = Pattern.compile("^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+        Log.i("Bigeard",strBeginBooking);
+        Log.i("Bigeard",strEndOfBooking);
 
-        Matcher  matcherBegin = regexDate.matcher(strBeginBooking);
-        Matcher matcherEnd = regexDate.matcher(strEndOfBooking);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            Date dateBegin = format.parse(strBeginBooking);
+            Date dateEnd = format.parse(strEndOfBooking);
 
+            Log.i("Bigeard", String.valueOf(dateBegin));
+            Log.i("Bigeard", String.valueOf(dateEnd));
 
-            // Vérif si les 2 dates sont rempli :
-            if (matcherBegin.matches() && matcherEnd.matches()) {
+            long numberOfDays = dateEnd.getTime() - dateBegin.getTime();
 
-                Intent intent = new Intent(this, SearchVehiculeActivity.class);
+            String stringNumberOfDays = String.valueOf(numberOfDays);
 
-                DateFormat format = new SimpleDateFormat("^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
-                Date dateBegin = format.parse(strBeginBooking);
-                Date dateEnd = format.parse(strEndOfBooking);
-                long numberOfDays = dateBegin.getTime() - dateEnd.getTime();
+            Log.i("Bigeard", String.valueOf(numberOfDays));
+            Log.i("Bigeard", stringNumberOfDays);
 
-                intent.putExtra("beginBooking", strBeginBooking);
-                intent.putExtra("endOfBooking", strEndOfBooking);
-                intent.putExtra("numberOfDays", numberOfDays);
-                startActivity(intent);
-                // On récupère le nombre de jour :
+            Intent intent = new Intent(this, SearchVehiculeActivity.class);
+            intent.putExtra("beginBooking", strBeginBooking);
+            intent.putExtra("endOfBooking", strEndOfBooking);
+            intent.putExtra("numberOfDays", stringNumberOfDays);
+            startActivity(intent);
 
+            // On récupère le nombre de jour :
 
+            // On put les valeurs des dates pour les récupérer plus tard :
 
-                // On put les valeurs des dates pour les récupérer plus tard :
-
-
-
-
-            } else if (!matcherBegin.matches()) {
-                beginBooking.setError("Mauvais format de date");
-            } else if (matcherEnd.matches()) {
-                endOfBooking.setError("Mauvais format de date");
-            }
-
-
-
-
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
