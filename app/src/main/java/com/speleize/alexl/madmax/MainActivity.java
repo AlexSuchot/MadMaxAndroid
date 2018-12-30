@@ -14,6 +14,8 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private Button profilButton = null;
@@ -83,15 +85,24 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Bigeard",strBeginBooking);
         Log.i("Bigeard",strEndOfBooking);
 
+        Pattern regexDate = Pattern.compile("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$");
+        Matcher beginMatcher = regexDate.matcher(strBeginBooking);
+        Matcher endMatcher = regexDate.matcher(strEndOfBooking);
+
+
+
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         try {
+            if(beginMatcher.matches() && endMatcher.matches()){
+
+
             Date dateBegin = format.parse(strBeginBooking);
             Date dateEnd = format.parse(strEndOfBooking);
 
             Log.i("Bigeard", String.valueOf(dateBegin));
             Log.i("Bigeard", String.valueOf(dateEnd));
 
-            long numberOfDays = dateEnd.getTime() - dateBegin.getTime();
+            long numberOfDays = (dateEnd.getTime() - dateBegin.getTime()) / 86400000;
 
             String stringNumberOfDays = String.valueOf(numberOfDays);
 
@@ -103,10 +114,14 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("endOfBooking", strEndOfBooking);
             intent.putExtra("numberOfDays", stringNumberOfDays);
             startActivity(intent);
+            }
+            else if(!beginMatcher.matches()){
+                beginBooking.setError("Mauvais format de date !");
+            }
+            else if (!endMatcher.matches()){
+                endOfBooking.setError("Mauvais format de date !");
+            }
 
-            // On récupère le nombre de jour :
-
-            // On put les valeurs des dates pour les récupérer plus tard :
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block
