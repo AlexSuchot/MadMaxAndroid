@@ -92,6 +92,7 @@
                 android:inputType="date"
                 android:hint="@string/beginBooking"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -103,6 +104,8 @@
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="@dimen/inputBookingHeight"
                 android:layout_marginTop="360dp"
+                android:textColor="@android:color/black"
+
 
                 android:background="@drawable/inputdatebooking"
                 android:inputType="date"

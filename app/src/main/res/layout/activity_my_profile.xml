@@ -30,13 +30,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                android:id="@+id/profilLastName"
                 android:layout_width="0dp"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="@dimen/inputBookingHeight"
 
                 android:layout_marginTop="180dp"
                 android:background="@drawable/inputdatebooking"
-                android:inputType="date"
+                android:inputType="text"
                 android:hint="Nom"
                 android:gravity="center"
 
@@ -45,13 +46,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                android:id="@+id/profilFirstName"
                 android:layout_width="0dp"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="@dimen/inputBookingHeight"
 
                 android:layout_marginTop="250dp"
                 android:background="@drawable/inputdatebooking"
-                android:inputType="date"
+                android:inputType="text"
                 android:hint="Prénom"
                 android:gravity="center"
 
@@ -60,13 +62,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                android:id="@+id/profilDate"
                 android:layout_width="0dp"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="@dimen/inputBookingHeight"
 
                 android:layout_marginTop="320dp"
                 android:background="@drawable/inputdatebooking"
-                android:inputType="date"
+                android:inputType="datetime"
                 android:hint="Date de naissance"
                 android:gravity="center"
 
@@ -86,6 +89,8 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/buttonTextSize"
+
+                android:onClick="addProfile"
 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

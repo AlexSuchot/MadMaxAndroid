@@ -1,11 +1,13 @@
 package com.speleize.alexl.madmax;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -35,6 +37,13 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_vehicule);
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("beginBooking");
+        String newString2 = extras.getString("endOfBooking");
+        String newString3 = extras.getString("numberOfDays");
+        Log.i("Bigeard",newString);
+        Log.i("Bigeard",newString2);
+        Log.i("Bigeard",newString3);
 
         // sauvegarde de la position en shared preferences :
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -95,5 +104,11 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onClickItem(Vehicle clickVehicle) {
+        Intent intent = new Intent(this, BookingStep1Activity.class);
+        startActivity(intent);
+        Log.i("Bigeard", String.valueOf(clickVehicle));
     }
 }
