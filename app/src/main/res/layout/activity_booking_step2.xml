@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookingStep2Activity">
+
+    <LinearLayout
+        android:id="@+id/message_block"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Merci de saisir ici vos demandes spécifiques :"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/grey"
+            android:gravity="top"
+            android:hint="Votre message..."
+            android:padding="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prix final: X €"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/Validation"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/buttonHeight"
+
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/buttondesign"
+        android:onClick="validation"
+        android:text="Valider"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+
+        android:textSize="@dimen/buttonTextSize"
+
+        app:layout_constraintBottom_toBottomOf="@+id/message_block"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

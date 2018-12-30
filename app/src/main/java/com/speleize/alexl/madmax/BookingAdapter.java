@@ -91,7 +91,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.VehicleV
     class VehicleViewHolder extends RecyclerView.ViewHolder
     {
         TextView vehicleNom = null;
-        TextView vehiclePrixjournalierbase = null;
 
         TextView vehicleBegin = null;
         TextView vehicleEnd = null;

@@ -46,12 +46,5 @@ public class BookingActivity extends AppCompatActivity
             bookingAdapter = new BookingAdapter(this, listBooking);
             recyclerView.setAdapter(bookingAdapter);
         }
-
-        /**
-         * Listener clic bouton valider.
-         * @param view Bouton valider
-         */
-        public void onClickBoutonValider(View view) {
-        }
     }
 

@@ -1,5 +1,6 @@
 package com.speleize.alexl.madmax;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -103,5 +104,11 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onClickItem(Vehicle clickVehicle) {
+        Intent intent = new Intent(this, BookingStep1Activity.class);
+        startActivity(intent);
+        Log.i("Bigeard", String.valueOf(clickVehicle));
     }
 }
