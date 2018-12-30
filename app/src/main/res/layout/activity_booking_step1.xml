@@ -8,7 +8,7 @@
     tools:context=".BookingStep1Activity">
 
     <TextView
-        android:id="@+id/vehicle_name"
+        android:id="@+id/vehicle_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="name"
@@ -19,11 +19,11 @@
 
     <ImageView
         android:id="@+id/vehicle_image"
-        android:layout_width="214dp"
+        android:layout_width="206dp"
         android:layout_height="120dp"
         android:layout_marginTop="5dp"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@id/vehicle_name"
+        app:layout_constraintTop_toBottomOf="@id/vehicle_nom"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -55,27 +55,27 @@
             android:text="Equipements: " />
 
         <TextView
+            android:id="@+id/vehicle_prixjournalierbase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="prixjournalierbase"
             android:layout_row="0"
-            android:layout_column="6"
-            android:layout_gravity="right"/>
+            android:layout_column="6" />
 
         <TextView
+            android:id="@+id/vehicle_categorieco2"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="categorieco2"
-            android:layout_gravity="right"
             />
 
         <TextView
+            android:id="@+id/vehicle_equipements"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="equipements"
-            android:layout_gravity="right"/>
+            android:text="equipements" />
 
     </GridLayout>
 
