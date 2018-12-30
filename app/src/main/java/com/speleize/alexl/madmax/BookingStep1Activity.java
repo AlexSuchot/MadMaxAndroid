@@ -10,9 +10,9 @@ import java.io.Serializable;
 
 public class BookingStep1Activity extends AppCompatActivity {
 
-//    String strBeginBooking;
-//    String strEndOfBooking;
-//    String strNumberOfDays;
+    String strBeginBooking;
+    String strEndOfBooking;
+    String strNumberOfDays;
     Vehicle vehicle;
 
     @Override
@@ -22,13 +22,13 @@ public class BookingStep1Activity extends AppCompatActivity {
 
         vehicle = (Vehicle)getIntent().getSerializableExtra("vehicle");
 
-//        Bundle extras = getIntent().getExtras();
-//        strBeginBooking = extras.getString("beginBooking");
-//        strEndOfBooking = extras.getString("endOfBooking");
-//        strNumberOfDays = extras.getString("numberOfDays");
-//        Log.i("Bigeard",strBeginBooking);
-//        Log.i("Bigeard",strEndOfBooking);
-//        Log.i("Bigeard",strNumberOfDays);
+        Bundle extras = getIntent().getExtras();
+        strBeginBooking = extras.getString("beginBooking");
+        strEndOfBooking = extras.getString("endOfBooking");
+        strNumberOfDays = extras.getString("numberOfDays");
+        Log.i("Bigeard",strBeginBooking);
+        Log.i("Bigeard",strEndOfBooking);
+        Log.i("Bigeard",strNumberOfDays);
         Log.i("Bigeard", vehicle.nom);
 
     }

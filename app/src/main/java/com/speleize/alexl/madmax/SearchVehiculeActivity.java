@@ -114,9 +114,9 @@ public class SearchVehiculeActivity extends AppCompatActivity {
         Log.i("Bigeard", clickVehicle.nom);
         Intent intent = new Intent(this, BookingStep1Activity.class);
         intent.putExtra("vehicle", clickVehicle);
-//        intent.putExtra("beginBooking", strBeginBooking);
-//        intent.putExtra("endOfBooking", strEndOfBooking);
-//        intent.putExtra("numberOfDays", strNumberOfDays);
+        intent.putExtra("beginBooking", strBeginBooking);
+        intent.putExtra("endOfBooking", strEndOfBooking);
+        intent.putExtra("numberOfDays", strNumberOfDays);
         startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 package com.speleize.alexl.madmax;
 
-public class Equipements {
+import java.io.Serializable;
+
+public class Equipements implements Serializable {
     public Integer id;
     public String nom;
 
