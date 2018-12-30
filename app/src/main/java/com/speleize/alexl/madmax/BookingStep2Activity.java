@@ -1,5 +1,6 @@
 package com.speleize.alexl.madmax;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,15 +19,15 @@ public class BookingStep2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_step2);
 
-        vehicle = (Vehicle)getIntent().getSerializableExtra("vehicle");
+        vehicle = (Vehicle) getIntent().getSerializableExtra("vehicle");
 
         Bundle extras = getIntent().getExtras();
         strBeginBooking = extras.getString("beginBooking");
         strEndOfBooking = extras.getString("endOfBooking");
         strNumberOfDays = extras.getString("numberOfDays");
-        Log.i("Bigeard",strBeginBooking);
-        Log.i("Bigeard",strEndOfBooking);
-        Log.i("Bigeard",strNumberOfDays);
+        Log.i("Bigeard", strBeginBooking);
+        Log.i("Bigeard", strEndOfBooking);
+        Log.i("Bigeard", strNumberOfDays);
         Log.i("Bigeard", vehicle.nom);
         Log.i("Bigeard", vehicle.prixjournalierbase.toString());
         Log.i("Bigeard", vehicle.categorieco2);
@@ -37,5 +38,8 @@ public class BookingStep2Activity extends AppCompatActivity {
     }
 
     public void validation(View view) {
+        BookingsDAO.ajouterVehicle(this, vehicle, strBeginBooking, strEndOfBooking);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
