@@ -1,8 +1,10 @@
 package com.speleize.alexl.madmax;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Vehicle {
+@SuppressWarnings("serial")
+public class Vehicle implements Serializable {
     public Integer id;
     public String nom;
     public String image;
@@ -16,7 +18,7 @@ public class Vehicle {
 
 
     // Constructor :
-    public Vehicle(
+    public Vehicle (
             Integer id,
             String nom,
             String image,

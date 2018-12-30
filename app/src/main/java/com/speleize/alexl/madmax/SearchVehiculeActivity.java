@@ -33,17 +33,21 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     // Adapter :
     private SearchVehiculeAdapter searchVehiculeAdapter = null;
 
+    private String strBeginBooking;
+    private String strEndOfBooking;
+    private String strNumberOfDays;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_vehicule);
         Bundle extras = getIntent().getExtras();
-        String newString = extras.getString("beginBooking");
-        String newString2 = extras.getString("endOfBooking");
-        String newString3 = extras.getString("numberOfDays");
-        Log.i("Bigeard",newString);
-        Log.i("Bigeard",newString2);
-        Log.i("Bigeard",newString3);
+        strBeginBooking = extras.getString("beginBooking");
+        strEndOfBooking = extras.getString("endOfBooking");
+        strNumberOfDays = extras.getString("numberOfDays");
+        Log.i("Bigeard",strBeginBooking);
+        Log.i("Bigeard",strEndOfBooking);
+        Log.i("Bigeard",strNumberOfDays);
 
         // sauvegarde de la position en shared preferences :
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -107,8 +111,12 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     }
 
     public void onClickItem(Vehicle clickVehicle) {
+        Log.i("Bigeard", clickVehicle.nom);
         Intent intent = new Intent(this, BookingStep1Activity.class);
+        intent.putExtra("vehicle", clickVehicle);
+//        intent.putExtra("beginBooking", strBeginBooking);
+//        intent.putExtra("endOfBooking", strEndOfBooking);
+//        intent.putExtra("numberOfDays", strNumberOfDays);
         startActivity(intent);
-        Log.i("Bigeard", String.valueOf(clickVehicle));
     }
 }

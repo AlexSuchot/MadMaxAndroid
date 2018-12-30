@@ -1,6 +1,5 @@
 package com.speleize.alexl.madmax;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -125,7 +124,6 @@ public class SearchVehiculeAdapter extends RecyclerView.Adapter<SearchVehiculeAd
                     Log.i("Bigeard", String.valueOf(getAdapterPosition()));
                     Vehicle clickVehicle = listVehicle.get(getAdapterPosition());
                     Log.i("Bigeard", String.valueOf(clickVehicle));
-
                     searchVehiculeActivity.onClickItem(clickVehicle);
                 }
             });
