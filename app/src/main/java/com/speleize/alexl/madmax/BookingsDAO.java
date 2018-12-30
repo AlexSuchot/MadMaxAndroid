@@ -81,7 +81,9 @@ public class BookingsDAO
     /**
      * Ajout d'un mémo en base de données.
      * @param context Context
-     * @param nom Nom
+     * @param vehicle Vehicle
+     * @param strBeginBooking BeginBooking
+     * @param strEndOfBooking EndOfBooking
      * @return ID vehicle
      */
     public static long ajouterVehicle(Context context, Vehicle vehicle, String strBeginBooking, String strEndOfBooking)
