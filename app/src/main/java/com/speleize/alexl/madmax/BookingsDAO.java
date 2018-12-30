@@ -2,6 +2,7 @@ package com.speleize.alexl.madmax;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
@@ -80,10 +81,12 @@ public class BookingsDAO
     /**
      * Ajout d'un mémo en base de données.
      * @param context Context
-     * @param nom Nom
+     * @param vehicle Vehicle
+     * @param strBeginBooking BeginBooking
+     * @param strEndOfBooking EndOfBooking
      * @return ID vehicle
      */
-    public static long ajouterVehicle(Context context, String nom)
+    public static long ajouterVehicle(Context context, Vehicle vehicle, String strBeginBooking, String strEndOfBooking)
     {
         // accès en écriture (insert, update, delete) :
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
@@ -91,7 +94,11 @@ public class BookingsDAO
 
         // objet de valeurs :
         ContentValues values = new ContentValues();
-        values.put(BaseContrat.BookingsContrat.COLONNE_NOM, nom);
+        values.put(BaseContrat.BookingsContrat.COLONNE_NOM, vehicle.nom);
+        values.put(BaseContrat.BookingsContrat.COLONNE_IMAGE, vehicle.image);
+        values.put(BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE, vehicle.prixjournalierbase);
+        values.put(BaseContrat.BookingsContrat.COLONNE_BEGIN, strBeginBooking);
+        values.put(BaseContrat.BookingsContrat.COLONNE_END, strEndOfBooking);
 
         // ajout :
         return db.insert(BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING, null, values);

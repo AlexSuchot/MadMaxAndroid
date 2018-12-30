@@ -1,6 +1,8 @@
 package com.speleize.alexl.madmax;
 
-public class Options {
+import java.io.Serializable;
+
+public class Options implements Serializable {
     public Integer id;
     public String nom;
     public Float prix;
