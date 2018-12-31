@@ -1,5 +1,7 @@
 package com.speleize.alexl.madmax;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -8,6 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -36,6 +45,8 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     private String strBeginBooking;
     private String strEndOfBooking;
     private String strNumberOfDays;
+    private List<Vehicle> listVehicle = new ArrayList<>();
+    private List<Vehicle> listVehiclePromotion = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +83,18 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                 try
                 {
                     JSONArray jsonArray = new JSONArray(retour);
-                    List<Vehicle> listVehicle = new ArrayList<>();
+
 
                     for (int i = 0 ; i < jsonArray.length() ; i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Vehicle vehicle = gson.fromJson(jsonObject.toString(), Vehicle.class);
                         listVehicle.add(vehicle);
+                    }
+
+                    for (int i = 0 ; i < listVehicle.size() ; i++) {
+                        if(listVehicle.get(i).promotion != 0) {
+                            listVehiclePromotion.add(listVehicle.get(i));
+                        }
                     }
 
                     recyclerView = findViewById(R.id.list_vehicles);
@@ -108,6 +125,30 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
             }
         });
+
+        Switch promotionSwitch = findViewById(R.id.promotion_switch);
+
+        promotionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                    Log.i("Bigeard", listVehiclePromotion.toString());
+
+                    Log.i("Bigeard", "Promotion");
+
+                    // adapter :
+                    searchVehiculeAdapter = new SearchVehiculeAdapter(SearchVehiculeActivity.this, listVehiclePromotion);
+                    recyclerView.setAdapter(searchVehiculeAdapter);
+                } else {
+                    Log.i("Bigeard", "Pas Promotion");
+                    // adapter :
+                    searchVehiculeAdapter = new SearchVehiculeAdapter(SearchVehiculeActivity.this, listVehicle);
+                    recyclerView.setAdapter(searchVehiculeAdapter);
+                }
+
+            }
+        });
     }
 
     public void onClickItem(Vehicle clickVehicle) {
@@ -119,4 +160,36 @@ public class SearchVehiculeActivity extends AppCompatActivity {
         intent.putExtra("numberOfDays", strNumberOfDays);
         startActivity(intent);
     }
+
+    public void onClickFilter(View view) {
+
+//        Animation page_slide_vertical_back = AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.page_slide_vertical_back);
+//
+//        Animation page_slide_vertical_out = AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.page_slide_vertical_out);
+
+        Button filter = findViewById(R.id.filter);
+        LinearLayout filter_block = findViewById(R.id.filter_block);
+
+        Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.line_translate_up);
+        filter.startAnimation(localAnimation);
+        filter_block.startAnimation(localAnimation);
+
+
+//        filter.startAnimation(page_slide_vertical_out);
+
+//        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.up_filter);
+//        set.setTarget(filter);
+//        set.start();
+//
+//        set.setTarget(filter_block);
+//        set.start();
+//        overridePendingTransition(R.anim.page_slide_vertical_in,
+//                R.anim.page_slide_vertical_out);
+//        parent.startAnimation(page_slide_vertical_back);
+
+//        AnimatorSet anim = (AnimatorSet) AnimatorInflater.loadAnimator(SearchVehiculeActivity.this, R.animator.up_filter);
+    }
+
 }
