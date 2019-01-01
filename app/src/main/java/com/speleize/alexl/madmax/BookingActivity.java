@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class BookingActivity extends AppCompatActivity
@@ -29,8 +29,16 @@ public class BookingActivity extends AppCompatActivity
             DatabaseHelper databaseHelper = new DatabaseHelper(this);
             databaseHelper.getReadableDatabase();
 
+            // cherche si tout les dates sons actuel et pas dépasser
+            try {
+                BookingsDAO.getOutDate(this);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             // accès à la base de données :
             List<Booking> listBooking = BookingsDAO.getListBookings(this);
+
             // vues :
             recyclerView = findViewById(R.id.list_bookings);
 //            editTextVehicle = findViewById(R.id.saisie_vehicle);

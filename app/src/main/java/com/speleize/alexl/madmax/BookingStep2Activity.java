@@ -12,6 +12,7 @@ public class BookingStep2Activity extends AppCompatActivity {
     private String strBeginBooking;
     private String strEndOfBooking;
     private String strNumberOfDays;
+    private String strOptionsPrix;
     private Vehicle vehicle;
 
     @Override
@@ -25,6 +26,8 @@ public class BookingStep2Activity extends AppCompatActivity {
         strBeginBooking = extras.getString("beginBooking");
         strEndOfBooking = extras.getString("endOfBooking");
         strNumberOfDays = extras.getString("numberOfDays");
+        strOptionsPrix = extras.getString("optionsPrix");
+
         Log.i("Bigeard", strBeginBooking);
         Log.i("Bigeard", strEndOfBooking);
         Log.i("Bigeard", strNumberOfDays);
@@ -32,9 +35,9 @@ public class BookingStep2Activity extends AppCompatActivity {
 //        Log.i("Bigeard", vehicle.prixjournalierbase.toString());
 //        Log.i("Bigeard", vehicle.categorieco2);
 
-//        Float prixFianl = vehicle.prixjournalierbase * Float.parseFloat(strNumberOfDays);
+        Float prixFianl = vehicle.prixjournalierbase * Float.parseFloat(strNumberOfDays) + Float.parseFloat(strOptionsPrix);
         TextView prix_final = findViewById(R.id.prix_final);
-//        prix_final.setText("Prix final: " + prixFianl.toString() + " €");
+        prix_final.setText("Prix final: " + prixFianl.toString() + " €");
     }
 
     public void validation(View view) {

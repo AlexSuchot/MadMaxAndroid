@@ -7,8 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,6 +29,7 @@ public class BookingStep1Activity extends AppCompatActivity {
     private String strEndOfBooking = "";
     private String strNumberOfDays = "";
     private Vehicle vehicle;
+    private Float optionsPrix = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +111,13 @@ public class BookingStep1Activity extends AppCompatActivity {
             LinearLayout option = findViewById(R.id.options);
             option.setVisibility(View.INVISIBLE);
         }
+
+    }
+
+    public void optionPriceChange(Float optionsPrix){
+        this.optionsPrix = optionsPrix;
+        Log.i("Bigeard", String.valueOf(this.optionsPrix));
+
     }
 
     public void goToStep2(View view) {
@@ -116,6 +126,8 @@ public class BookingStep1Activity extends AppCompatActivity {
         intent.putExtra("beginBooking", strBeginBooking);
         intent.putExtra("endOfBooking", strEndOfBooking);
         intent.putExtra("numberOfDays", strNumberOfDays);
+        intent.putExtra("optionsPrix", optionsPrix.toString());
+
         startActivity(intent);
     }
 }

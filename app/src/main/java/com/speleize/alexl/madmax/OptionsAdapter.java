@@ -5,15 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VehicleViewHolder>
 {
+    private Float optionsPrix = 0f;
 
     // Activité :
     private BookingStep1Activity bookingStep1Activity = null;
@@ -85,6 +85,23 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VehicleV
             super(itemView);
 
             optionText = itemView.findViewById(R.id.option_text);
+
+            Switch optionSwitch = itemView.findViewById(R.id.option_switch);
+
+            optionSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    Options clickOption = listOption.get(getAdapterPosition());
+
+                    if (isChecked) {
+                        optionsPrix = optionsPrix + clickOption.prix;
+                    } else {
+                        optionsPrix = optionsPrix - clickOption.prix;
+                    }
+                    bookingStep1Activity.optionPriceChange(optionsPrix);
+                }
+            });
         }
+
     }
 }
