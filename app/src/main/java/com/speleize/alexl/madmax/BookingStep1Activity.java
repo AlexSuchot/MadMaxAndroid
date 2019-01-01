@@ -3,20 +3,29 @@ package com.speleize.alexl.madmax;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 public class BookingStep1Activity extends AppCompatActivity {
 
+    // Vues :
+    private RecyclerView recyclerView = null;
+
+    // Adapter :
+    private OptionsAdapter optionsAdapter = null;
+
     private static final String LIEN_IMAGE = "http://s519716619.onlinehome.fr/exchange/madrental/images/";
 
-    private String strBeginBooking;
-    private String strEndOfBooking;
-    private String strNumberOfDays;
+    private String strBeginBooking = "";
+    private String strEndOfBooking = "";
+    private String strNumberOfDays = "";
     private Vehicle vehicle;
 
     @Override
@@ -24,18 +33,39 @@ public class BookingStep1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_step1);
 
-        vehicle = (Vehicle)getIntent().getSerializableExtra("vehicle");
 
-        Bundle extras = getIntent().getExtras();
-        strBeginBooking = extras.getString("beginBooking");
-        strEndOfBooking = extras.getString("endOfBooking");
-        strNumberOfDays = extras.getString("numberOfDays");
-        Log.i("Bigeard",strBeginBooking);
-        Log.i("Bigeard",strEndOfBooking);
-        Log.i("Bigeard",strNumberOfDays);
-        Log.i("Bigeard", vehicle.nom);
-        Log.i("Bigeard", vehicle.prixjournalierbase.toString());
-        Log.i("Bigeard", vehicle.categorieco2);
+
+        if (savedInstanceState == null) {
+
+            Bundle extras = getIntent().getExtras();
+
+
+            if (extras == null) {
+                Log.i("Bigeard", "extras null");
+
+            } else {
+                Log.i("Bigeard", "extras not null");
+
+                vehicle = (Vehicle) getIntent().getSerializableExtra("vehicle");
+
+                strBeginBooking = extras.getString("beginBooking");
+                strEndOfBooking = extras.getString("endOfBooking");
+                strNumberOfDays = extras.getString("numberOfDays");
+                Log.i("Bigeard", strBeginBooking);
+                Log.i("Bigeard", strEndOfBooking);
+                Log.i("Bigeard", strNumberOfDays);
+                Log.i("Bigeard", vehicle.nom);
+                Log.i("Bigeard", vehicle.prixjournalierbase.toString());
+                Log.i("Bigeard", vehicle.categorieco2);
+
+            }
+        } else {
+            strBeginBooking = (String) savedInstanceState.getSerializable("beginBooking");
+            strEndOfBooking = (String) savedInstanceState.getSerializable("endOfBooking");
+            strNumberOfDays = (String) savedInstanceState.getSerializable("numberOfDays");
+            vehicle = (Vehicle) savedInstanceState.getSerializable("vehicle");
+
+        }
 
         TextView vehicleNom = findViewById(R.id.vehicle_nom);
         vehicleNom.setText(vehicle.nom);
@@ -60,6 +90,24 @@ public class BookingStep1Activity extends AppCompatActivity {
         }
         TextView vehicleEquipements = findViewById(R.id.vehicle_equipements);
         vehicleEquipements.setText(equipementsNom);
+
+        recyclerView = findViewById(R.id.list_options);
+
+        // à ajouter pour de meilleures performances :
+        recyclerView.setHasFixedSize(true);
+
+        // layout manager, décrivant comment les items sont disposés :
+        LinearLayoutManager layoutManager = new LinearLayoutManager(BookingStep1Activity.this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // adapter :
+        optionsAdapter = new OptionsAdapter(BookingStep1Activity.this, vehicle.options);
+        recyclerView.setAdapter(optionsAdapter);
+
+        if(vehicle.options.isEmpty()){
+            LinearLayout option = findViewById(R.id.options);
+            option.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void goToStep2(View view) {

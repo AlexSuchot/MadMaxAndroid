@@ -28,13 +28,13 @@ public class BookingStep2Activity extends AppCompatActivity {
         Log.i("Bigeard", strBeginBooking);
         Log.i("Bigeard", strEndOfBooking);
         Log.i("Bigeard", strNumberOfDays);
-        Log.i("Bigeard", vehicle.nom);
-        Log.i("Bigeard", vehicle.prixjournalierbase.toString());
-        Log.i("Bigeard", vehicle.categorieco2);
+//        Log.i("Bigeard", vehicle.nom);
+//        Log.i("Bigeard", vehicle.prixjournalierbase.toString());
+//        Log.i("Bigeard", vehicle.categorieco2);
 
-        Float prixFianl = vehicle.prixjournalierbase * Float.parseFloat(strNumberOfDays);
+//        Float prixFianl = vehicle.prixjournalierbase * Float.parseFloat(strNumberOfDays);
         TextView prix_final = findViewById(R.id.prix_final);
-        prix_final.setText("Prix final: " + prixFianl.toString() + " €");
+//        prix_final.setText("Prix final: " + prixFianl.toString() + " €");
     }
 
     public void validation(View view) {
