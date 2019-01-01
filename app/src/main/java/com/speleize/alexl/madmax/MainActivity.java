@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (beginBooking.hasFocus()) {
-                    beginBooking.setHint("MM/dd/yyyy");
+                    beginBooking.setHint("dd/MM/yyyy");
                 } else {
                     beginBooking.setHint("Date de début de réservation");
                 }
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (endOfBooking.hasFocus()) {
-                    endOfBooking.setHint("MM/dd/yyyy");
+                    endOfBooking.setHint("dd/MM/yyyy");
                 } else {
                     endOfBooking.setHint("Date de fin de réservation");
                 }
@@ -91,10 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
         try {
             if(beginMatcher.matches() && endMatcher.matches()){
-
 
             Date dateBegin = format.parse(strBeginBooking);
             Date dateEnd = format.parse(strEndOfBooking);
@@ -102,11 +102,10 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Bigeard", String.valueOf(dateBegin));
             Log.i("Bigeard", String.valueOf(dateEnd));
 
-            long numberOfDays = (dateEnd.getTime() - dateBegin.getTime()) / 86400000;
+            long numberOfDays = ( (dateEnd.getTime() - dateBegin.getTime()) / (1000 * 60 * 60 * 24));
 
             String stringNumberOfDays = String.valueOf(numberOfDays);
 
-            Log.i("Bigeard", String.valueOf(numberOfDays));
             Log.i("Bigeard", stringNumberOfDays);
 
             Intent intent = new Intent(this, SearchVehiculeActivity.class);

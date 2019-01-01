@@ -42,16 +42,18 @@ public class MyProfileActivity extends AppCompatActivity {
 
         String firstname = getProfile.getString("firstname", "");
         String name = getProfile.getString("lastname", "");
+        String strDateOfBirth = getProfile.getString("strDateOfBirth", "");
 
         profilFirstName.setText(firstname);
         profilLastName.setText(name);
+        profilDate.setText(strDateOfBirth);
 
         // Renseignement pour l'utilisateur sur la syntaxe de la date :
         profilDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (profilDate.hasFocus()) {
-                    profilDate.setHint("MM/dd/yyyy");
+                    profilDate.setHint("dd/MM/yyyy");
                 } else {
                     profilDate.setHint("Enter your date of birth :");
                 }
@@ -90,7 +92,7 @@ public class MyProfileActivity extends AppCompatActivity {
         Matcher matcher = regexDate.matcher(strProfilDate);
 
 
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             if (matcher.matches()) {
 
@@ -119,6 +121,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getProfile.edit();
                 editor.putString("firstname", strLastName);
                 editor.putString("lastname", strFirstName);
+                editor.putString("strDateOfBirth", strProfilDate);
                 editor.apply();
 
                 startActivity(intent);
