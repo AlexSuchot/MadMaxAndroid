@@ -114,7 +114,7 @@ public class BookingsDAO
         // accès à la base de données :
         List<Booking> listBooking = BookingsDAO.getListBookings(context);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-        Date today = new Date();
+        String today = format.format(new Date());
 
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -126,13 +126,13 @@ public class BookingsDAO
             Log.i("Bigeard", "In for");
 
             Date dateEnd = format.parse(listBooking.get(i).end);
-            Date dateToday = format.parse(String.valueOf(today));
+            Date dateToday = format.parse(today);
 
             Log.i("Bigeard", String.valueOf(dateEnd));
             Log.i("Bigeard", String.valueOf(dateToday));
-            if ( dateEnd.getTime() > dateToday.getTime() ){
-                db.delete(BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING, BaseContrat.BookingsContrat.COLONNE_NOM + "=" + listBooking.get(i).nom, null);
+            if ( dateEnd.getTime() < dateToday.getTime() ){
                 Log.i("Bigeard", "getOutDate: Delete");
+                db.delete(BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING, BaseContrat.BookingsContrat.COLONNE_NOM + "=?", new String[]{listBooking.get(i).nom});
             }
         }
     }

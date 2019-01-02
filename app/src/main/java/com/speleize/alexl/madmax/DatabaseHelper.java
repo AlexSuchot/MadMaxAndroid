@@ -32,7 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_TABLE_BOOKING);
-        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Buggy', 'zoom-buggy.jpg', '29', '11/11/2018', '29/12/2018')");
+        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Buggy', 'zoom-buggy.jpg', '29', '11/11/2020', '29/12/2020')");
+        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Magic', 'zoom-buggy.jpg', '50', '11/11/2030', '29/12/2030')");
+
     }
 
     @Override
