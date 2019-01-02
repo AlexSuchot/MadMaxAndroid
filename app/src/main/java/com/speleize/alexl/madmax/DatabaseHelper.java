@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             + BaseContrat.BookingsContrat._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + BaseContrat.BookingsContrat.COLONNE_NOM + " TEXT NOT NULL, "
             + BaseContrat.BookingsContrat.COLONNE_IMAGE + " TEXT NOT NULL, "
-            + BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE + " FLOAT NOT NULL, "
+            + BaseContrat.BookingsContrat.COLONNE_PRIXFINAL + " FLOAT NOT NULL, "
             + BaseContrat.BookingsContrat.COLONNE_BEGIN + " TEXT NOT NULL, "
             + BaseContrat.BookingsContrat.COLONNE_END + " TEXT NOT NULL "
             + ")";
@@ -32,9 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_TABLE_BOOKING);
-        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Buggy', 'zoom-buggy.jpg', '29', '11/11/2020', '29/12/2020')");
-        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Magic', 'zoom-buggy.jpg', '50', '11/11/2030', '29/12/2030')");
-
+        db.execSQL("INSERT INTO " + BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING + " VALUES (NULL, 'Buggy', 'zoom-buggy.jpg', '194', '11/11/2020', '29/12/2020')");
     }
 
     @Override

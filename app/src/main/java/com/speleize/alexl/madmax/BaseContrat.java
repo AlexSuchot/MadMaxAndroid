@@ -17,7 +17,7 @@ public class BaseContrat {
         public static final String TABLE_TABLE_BOOKING = "bookings";
         public static final String COLONNE_NOM = "nom";
         public static final String COLONNE_IMAGE = "image";
-        public static final String COLONNE_PRIXJOURNALIERBASE = "prixjournalierbase";
+        public static final String COLONNE_PRIXFINAL = "prixfinal";
         public static final String COLONNE_BEGIN = "begin";
         public static final String COLONNE_END = "end";
     }

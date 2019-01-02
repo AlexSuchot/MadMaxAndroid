@@ -28,7 +28,7 @@ public class BookingsDAO
         String[] projection = {BaseContrat.BookingsContrat._ID,
                 BaseContrat.BookingsContrat.COLONNE_NOM,
                 BaseContrat.BookingsContrat.COLONNE_IMAGE,
-                BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE,
+                BaseContrat.BookingsContrat.COLONNE_PRIXFINAL,
                 BaseContrat.BookingsContrat.COLONNE_BEGIN,
                 BaseContrat.BookingsContrat.COLONNE_END,
 
@@ -65,7 +65,7 @@ public class BookingsDAO
                     listBooking.add(new Booking(
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_NOM )),
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_IMAGE )),
-                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE )),
+                            cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_PRIXFINAL )),
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_BEGIN )),
                             cursor.getString(cursor.getColumnIndex( BaseContrat.BookingsContrat.COLONNE_END ))
                             ));
@@ -92,7 +92,7 @@ public class BookingsDAO
      * @param strEndOfBooking EndOfBooking
      * @return ID vehicle
      */
-    public static long ajouterVehicle(Context context, Vehicle vehicle, String strBeginBooking, String strEndOfBooking)
+    public static long ajouterVehicle(Context context, Vehicle vehicle, String strBeginBooking, String strEndOfBooking, String prixFinal)
     {
         // accès en écriture (insert, update, delete) :
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
@@ -102,7 +102,7 @@ public class BookingsDAO
         ContentValues values = new ContentValues();
         values.put(BaseContrat.BookingsContrat.COLONNE_NOM, vehicle.nom);
         values.put(BaseContrat.BookingsContrat.COLONNE_IMAGE, vehicle.image);
-        values.put(BaseContrat.BookingsContrat.COLONNE_PRIXJOURNALIERBASE, vehicle.prixjournalierbase);
+        values.put(BaseContrat.BookingsContrat.COLONNE_PRIXFINAL, prixFinal);
         values.put(BaseContrat.BookingsContrat.COLONNE_BEGIN, strBeginBooking);
         values.put(BaseContrat.BookingsContrat.COLONNE_END, strEndOfBooking);
 

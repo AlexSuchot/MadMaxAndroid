@@ -14,6 +14,7 @@ public class BookingStep2Activity extends AppCompatActivity {
     private String strNumberOfDays;
     private String strOptionsPrix;
     private Vehicle vehicle;
+    private Float prixFianl = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +36,13 @@ public class BookingStep2Activity extends AppCompatActivity {
 //        Log.i("Bigeard", vehicle.prixjournalierbase.toString());
 //        Log.i("Bigeard", vehicle.categorieco2);
 
-        Float prixFianl = vehicle.prixjournalierbase * Float.parseFloat(strNumberOfDays) + Float.parseFloat(strOptionsPrix);
+        prixFianl = vehicle.prixjournalierbase * Float.parseFloat(strNumberOfDays) + Float.parseFloat(strOptionsPrix);
         TextView prix_final = findViewById(R.id.prix_final);
         prix_final.setText("Prix final: " + prixFianl.toString() + " €");
     }
 
     public void validation(View view) {
-        BookingsDAO.ajouterVehicle(this, vehicle, strBeginBooking, strEndOfBooking);
+        BookingsDAO.ajouterVehicle(this, vehicle, strBeginBooking, strEndOfBooking, prixFianl.toString());
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
