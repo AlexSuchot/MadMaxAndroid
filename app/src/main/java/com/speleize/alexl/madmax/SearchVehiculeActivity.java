@@ -1,6 +1,7 @@
 package com.speleize.alexl.madmax;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -57,27 +58,6 @@ public class SearchVehiculeActivity extends AppCompatActivity {
             BeginBooking = getRentingDate.getString("beginBooking", "");
             EndOfBooking = getRentingDate.getString("endOfBooking", "");
             NumberOfDays = getRentingDate.getString("daysBetween","");
-
-            //Bundle extras = getIntent().getExtras();
-
-
-            /*if(extras == null) {
-
-                Log.i("Bigeard", "extras null");
-                Log.i("Bigeard", beginBookingDate);
-                Log.i("Bigeard", endOfBookingDate);
-                Log.i("Bigeard", NumberOfDays);
-
-            } else {
-                Log.i("Bigeard", "extras not null");
-
-                strBeginBooking = extras.getString("beginBooking");
-                strEndOfBooking = extras.getString("endOfBooking");
-                strNumberOfDays = extras.getString("numberOfDays");
-                Log.i("Bigeard", strBeginBooking);
-                Log.i("Bigeard", strEndOfBooking);
-                Log.i("Bigeard", strNumberOfDays);
-            }*/
         }
 
         // sauvegarde de la position en shared preferences :
@@ -173,13 +153,12 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
     public void onClickItem(Vehicle clickVehicle) {
         Log.i("Bigeard", clickVehicle.nom);
-        /*Intent intent = new Intent(this, BookingStep1Activity.class);
+        Intent intent = new Intent(this, BookingStep1Activity.class);
         intent.putExtra("vehicle", clickVehicle);
-        intent.putExtra("beginBooking", strBeginBooking);
+        /*intent.putExtra("beginBooking", strBeginBooking);
         intent.putExtra("endOfBooking", strEndOfBooking);
-        intent.putExtra("numberOfDays", strNumberOfDays);
-        startActivity(intent);*/
-        //SharedPreferences toBookingStep1Activity =
+        intent.putExtra("numberOfDays", strNumberOfDays);*/
+        startActivity(intent);
     }
 
     public void onClickFilter(View view) {

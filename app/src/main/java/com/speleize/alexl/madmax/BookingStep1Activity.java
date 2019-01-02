@@ -1,16 +1,16 @@
 package com.speleize.alexl.madmax;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -25,9 +25,10 @@ public class BookingStep1Activity extends AppCompatActivity {
 
     private static final String LIEN_IMAGE = "http://s519716619.onlinehome.fr/exchange/madrental/images/";
 
-    private String strBeginBooking = "";
-    private String strEndOfBooking = "";
-    private String strNumberOfDays = "";
+
+    private String BeginBooking;
+    private String EndOfBooking;
+    private String NumberOfDays;
     private Vehicle vehicle;
     private Float optionsPrix = 0f;
 
@@ -42,6 +43,11 @@ public class BookingStep1Activity extends AppCompatActivity {
 
             Bundle extras = getIntent().getExtras();
 
+            SharedPreferences getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
+            BeginBooking = getRentingDate.getString("beginBooking", "");
+            EndOfBooking = getRentingDate.getString("endOfBooking", "");
+            NumberOfDays = getRentingDate.getString("daysBetween","");
+
 
             if (extras == null) {
                 Log.i("Bigeard", "extras null");
@@ -51,21 +57,15 @@ public class BookingStep1Activity extends AppCompatActivity {
 
                 vehicle = (Vehicle) getIntent().getSerializableExtra("vehicle");
 
-                strBeginBooking = extras.getString("beginBooking");
-                strEndOfBooking = extras.getString("endOfBooking");
-                strNumberOfDays = extras.getString("numberOfDays");
-                Log.i("Bigeard", strBeginBooking);
-                Log.i("Bigeard", strEndOfBooking);
-                Log.i("Bigeard", strNumberOfDays);
                 Log.i("Bigeard", vehicle.nom);
                 Log.i("Bigeard", vehicle.prixjournalierbase.toString());
                 Log.i("Bigeard", vehicle.categorieco2);
 
             }
         } else {
-            strBeginBooking = (String) savedInstanceState.getSerializable("beginBooking");
-            strEndOfBooking = (String) savedInstanceState.getSerializable("endOfBooking");
-            strNumberOfDays = (String) savedInstanceState.getSerializable("numberOfDays");
+            BeginBooking = (String) savedInstanceState.getSerializable("beginBooking");
+            EndOfBooking = (String) savedInstanceState.getSerializable("endOfBooking");
+            NumberOfDays = (String) savedInstanceState.getSerializable("numberOfDays");
             vehicle = (Vehicle) savedInstanceState.getSerializable("vehicle");
 
         }
@@ -123,10 +123,14 @@ public class BookingStep1Activity extends AppCompatActivity {
     public void goToStep2(View view) {
         Intent intent = new Intent(this, BookingStep2Activity.class);
         intent.putExtra("vehicle", vehicle);
-        intent.putExtra("beginBooking", strBeginBooking);
-        intent.putExtra("endOfBooking", strEndOfBooking);
-        intent.putExtra("numberOfDays", strNumberOfDays);
-        intent.putExtra("optionsPrix", optionsPrix.toString());
+        //intent.putExtra("optionsPrix", optionsPrix.toString());
+
+        // SHARED PREFERENCES :
+        SharedPreferences getRentingDate;
+        getRentingDate = getSharedPreferences("toBookingStep2Activity", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = getRentingDate.edit();
+        editor.putString("optionsPrix", optionsPrix.toString());
+        editor.apply();
 
         startActivity(intent);
     }
