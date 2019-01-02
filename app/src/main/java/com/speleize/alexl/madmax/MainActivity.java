@@ -1,6 +1,8 @@
 package com.speleize.alexl.madmax;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private Button profilButton = null;
     private EditText beginBooking = null;
     private EditText endOfBooking = null;
+    private Long age = null;
+    SharedPreferences getRentingDate;
+    String strNumberOfDays = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,22 @@ public class MainActivity extends AppCompatActivity {
         // Assignement des ID :
         beginBooking = findViewById(R.id.beginBooking);
         endOfBooking = findViewById(R.id.endOfBooking);
+
+        // SHARED PREFERENCES DE LA HOME :
+        getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
+
+        String beginBookingDate = getRentingDate.getString("beginBooking", "");
+        String endOfBookingDate = getRentingDate.getString("endOfBooking", "");
+        strNumberOfDays = getRentingDate.getString("daysBetween","");
+
+
+        // SHARED PREFERENCES DU PROFIL :
+        SharedPreferences getProfile = getSharedPreferences("prefProfile", Context.MODE_PRIVATE);
+        age = getProfile.getLong("userAge", 0);
+
+        beginBooking.setText(beginBookingDate);
+        endOfBooking.setText(endOfBookingDate);
+
 
         // Renseignement pour l'utilisateur sur la syntaxe de la date :
         beginBooking.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -83,48 +105,71 @@ public class MainActivity extends AppCompatActivity {
         String strBeginBooking = beginBooking.getText().toString();
         String strEndOfBooking = endOfBooking.getText().toString();
 
-        Log.i("Bigeard",strBeginBooking);
-        Log.i("Bigeard",strEndOfBooking);
+        Log.i("Bigeard", strBeginBooking);
+        Log.i("Bigeard", strEndOfBooking);
+        Log.i("Bigeard", "agadin " + age);
 
         Pattern regexDate = Pattern.compile("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$");
         Matcher beginMatcher = regexDate.matcher(strBeginBooking);
         Matcher endMatcher = regexDate.matcher(strEndOfBooking);
 
-
-
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-        try {
-            if(beginMatcher.matches() && endMatcher.matches()){
 
-            Date dateBegin = format.parse(strBeginBooking);
-            Date dateEnd = format.parse(strEndOfBooking);
+        // On récupère l'âge de l'user :
+        //Intent getProfileIntent = getIntent();
+        //Long ageIntent = getProfileIntent.getLongExtra("ageResult", 0);
 
-            Log.i("Bigeard", String.valueOf(dateBegin));
-            Log.i("Bigeard", String.valueOf(dateEnd));
+        if (age >= 21) {
+            try {
+                if (beginMatcher.matches() && endMatcher.matches()) {
 
-            long numberOfDays = ( (dateEnd.getTime() - dateBegin.getTime()) / (1000 * 60 * 60 * 24));
 
-            String stringNumberOfDays = String.valueOf(numberOfDays);
+                    Date dateBegin = format.parse(strBeginBooking);
+                    Date dateEnd = format.parse(strEndOfBooking);
 
-            Log.i("Bigeard", stringNumberOfDays);
+                    if (dateBegin.before(dateEnd)) {
 
-            Intent intent = new Intent(this, SearchVehiculeActivity.class);
-            intent.putExtra("beginBooking", strBeginBooking);
-            intent.putExtra("endOfBooking", strEndOfBooking);
-            intent.putExtra("numberOfDays", stringNumberOfDays);
-            startActivity(intent);
+                        Log.i("Bigeard", String.valueOf(dateBegin));
+                        Log.i("Bigeard", String.valueOf(dateEnd));
+
+                        long numberOfDays = ((dateEnd.getTime() - dateBegin.getTime()) / (1000 * 60 * 60 * 24));
+
+                        strNumberOfDays = String.valueOf(numberOfDays);
+
+                        Log.i("Bigeard", strNumberOfDays);
+
+                        // SHARED PREFERENCES :
+                        SharedPreferences getRentingDate;
+                        getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = getRentingDate.edit();
+                        editor.putString("beginBooking", strBeginBooking);
+                        editor.putString("endOfBooking", strEndOfBooking);
+                        editor.putString("daysBetween", strNumberOfDays);
+                        //editor.putLong("userAge", age);
+                        editor.apply();
+
+                        // INTENT :
+                        Intent intent = new Intent(this, SearchVehiculeActivity.class);
+                        intent.putExtra("beginBooking", strBeginBooking);
+                        intent.putExtra("endOfBooking", strEndOfBooking);
+                        intent.putExtra("numberOfDays", strNumberOfDays);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "First day of location can't be set after the last day.", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (!beginMatcher.matches()) {
+                    beginBooking.setError("Wrong date format !");
+                } else if (!endMatcher.matches()) {
+                    endOfBooking.setError("Wrong date format !");
+                }
+
+
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            else if(!beginMatcher.matches()){
-                beginBooking.setError("Mauvais format de date !");
-            }
-            else if (!endMatcher.matches()){
-                endOfBooking.setError("Mauvais format de date !");
-            }
-
-
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } else {
+            Toast.makeText(this, "Required age is 21.", Toast.LENGTH_LONG).show();
         }
     }
 }

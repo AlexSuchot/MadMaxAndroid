@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +26,7 @@ public class MyProfileActivity extends AppCompatActivity {
     String strLastName = null;
     String strFirstName = null;
     String strProfilDate = null;
+    Long age = null;
 
     SharedPreferences getProfile;
 
@@ -38,6 +41,7 @@ public class MyProfileActivity extends AppCompatActivity {
         profilFirstName = findViewById(R.id.profilFirstName);
         profilDate = findViewById(R.id.profilDate);
 
+        // On récupère les données du profil lorsqu'on arrive sur la page profil :
         getProfile = getSharedPreferences("prefProfile", Context.MODE_PRIVATE);
 
         String firstname = getProfile.getString("firstname", "");
@@ -47,6 +51,7 @@ public class MyProfileActivity extends AppCompatActivity {
         profilFirstName.setText(firstname);
         profilLastName.setText(name);
         profilDate.setText(strDateOfBirth);
+        age = getProfile.getLong("userAgePrevious",0);
 
         // Renseignement pour l'utilisateur sur la syntaxe de la date :
         profilDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -87,12 +92,11 @@ public class MyProfileActivity extends AppCompatActivity {
         strFirstName = profilFirstName.getText().toString();
         strProfilDate = profilDate.getText().toString();
 
-
         Pattern regexDate = Pattern.compile("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$");
         Matcher matcher = regexDate.matcher(strProfilDate);
 
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
         try {
             if (matcher.matches()) {
 
@@ -100,34 +104,41 @@ public class MyProfileActivity extends AppCompatActivity {
                 Date dateOfBirth = format.parse(strProfilDate);
                 Date currentDate = new Date();
 
-                long age = ((currentDate.getTime() - dateOfBirth.getTime()) / 86400000) / 365;
 
-               // String ageValue = String.valueOf(age);
+                if (dateOfBirth.before(currentDate)) {
 
-                Log.i("Date de naissance", String.valueOf(dateOfBirth));
-                Log.i("Date d'aujourd'hui", String.valueOf(currentDate));
-                Log.i("Age", String.valueOf(age));
+                    age = ((currentDate.getTime() - dateOfBirth.getTime()) / 86400000) / 365;
 
+                    Log.i("Date de naissance", String.valueOf(dateOfBirth));
+                    Log.i("Date d'aujourd'hui", String.valueOf(currentDate));
+                    Log.i("Age", String.valueOf(age));
 
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("dateOfBirth", dateOfBirth);
-                intent.putExtra("todaysDate", currentDate);
-                intent.putExtra("ageResult", age);
+                    // INTENT :
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("dateOfBirth", dateOfBirth);
+                    intent.putExtra("todaysDate", currentDate);
+                    intent.putExtra("userAgeIntent", age);
 
-                startActivity(intent);
+                    // SHARED PREFERENCES :
 
-                SharedPreferences getProfile;
-                getProfile = getSharedPreferences("prefProfile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = getProfile.edit();
-                editor.putString("firstname", strLastName);
-                editor.putString("lastname", strFirstName);
-                editor.putString("strDateOfBirth", strProfilDate);
-                editor.apply();
+                    SharedPreferences getProfile;
+                    getProfile = getSharedPreferences("prefProfile", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = getProfile.edit();
+                    editor.putString("firstname", strLastName);
+                    editor.putString("lastname", strFirstName);
+                    editor.putString("strDateOfBirth", strProfilDate);
+                    editor.putLong("userAge", age);
+                    editor.apply();
 
-                startActivity(intent);
+                    Toast.makeText(this, "Profile successfully update ! ", Toast.LENGTH_SHORT).show();
+
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Wrong date of birth, can't be set after the current date.", Toast.LENGTH_SHORT).show();
+                }
 
             } else if (!matcher.matches()) {
-                profilDate.setError("Mauvais format de date !");
+                profilDate.setError("Wrong date format !");
             }
 
         } catch (ParseException e) {

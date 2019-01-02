@@ -1,10 +1,10 @@
 package com.speleize.alexl.madmax;
 
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,9 +40,9 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     // Adapter :
     private SearchVehiculeAdapter searchVehiculeAdapter = null;
 
-    private String strBeginBooking;
-    private String strEndOfBooking;
-    private String strNumberOfDays;
+    private String BeginBooking;
+    private String EndOfBooking;
+    private String NumberOfDays;
     private List<Vehicle> listVehicle = new ArrayList<>();
     private List<Vehicle> listVehiclePromotion = new ArrayList<>();
 
@@ -53,14 +53,20 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            Bundle extras = getIntent().getExtras();
+            SharedPreferences getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
+            BeginBooking = getRentingDate.getString("beginBooking", "");
+            EndOfBooking = getRentingDate.getString("endOfBooking", "");
+            NumberOfDays = getRentingDate.getString("daysBetween","");
+
+            //Bundle extras = getIntent().getExtras();
 
 
-            if(extras == null) {
+            /*if(extras == null) {
+
                 Log.i("Bigeard", "extras null");
-                Log.i("Bigeard", strBeginBooking);
-                Log.i("Bigeard", strEndOfBooking);
-                Log.i("Bigeard", strNumberOfDays);
+                Log.i("Bigeard", beginBookingDate);
+                Log.i("Bigeard", endOfBookingDate);
+                Log.i("Bigeard", NumberOfDays);
 
             } else {
                 Log.i("Bigeard", "extras not null");
@@ -71,7 +77,7 @@ public class SearchVehiculeActivity extends AppCompatActivity {
                 Log.i("Bigeard", strBeginBooking);
                 Log.i("Bigeard", strEndOfBooking);
                 Log.i("Bigeard", strNumberOfDays);
-            }
+            }*/
         }
 
         // sauvegarde de la position en shared preferences :
@@ -167,12 +173,13 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
     public void onClickItem(Vehicle clickVehicle) {
         Log.i("Bigeard", clickVehicle.nom);
-        Intent intent = new Intent(this, BookingStep1Activity.class);
+        /*Intent intent = new Intent(this, BookingStep1Activity.class);
         intent.putExtra("vehicle", clickVehicle);
         intent.putExtra("beginBooking", strBeginBooking);
         intent.putExtra("endOfBooking", strEndOfBooking);
         intent.putExtra("numberOfDays", strNumberOfDays);
-        startActivity(intent);
+        startActivity(intent);*/
+        //SharedPreferences toBookingStep1Activity =
     }
 
     public void onClickFilter(View view) {
