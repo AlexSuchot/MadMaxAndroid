@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,15 +15,12 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,16 +128,10 @@ public class SearchVehiculeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked) {
-
-                    Log.i("Bigeard", listVehiclePromotion.toString());
-
-                    Log.i("Bigeard", "Promotion");
-
                     // adapter :
                     searchVehiculeAdapter = new SearchVehiculeAdapter(SearchVehiculeActivity.this, listVehiclePromotion);
                     recyclerView.setAdapter(searchVehiculeAdapter);
                 } else {
-                    Log.i("Bigeard", "Pas Promotion");
                     // adapter :
                     searchVehiculeAdapter = new SearchVehiculeAdapter(SearchVehiculeActivity.this, listVehicle);
                     recyclerView.setAdapter(searchVehiculeAdapter);
@@ -152,12 +142,17 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     }
 
     public void onClickItem(Vehicle clickVehicle) {
-        Log.i("Bigeard", clickVehicle.nom);
+
+        SharedPreferences getVehicle;
+        getVehicle = getSharedPreferences("prefVehicle", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorVehicle = getVehicle.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(clickVehicle);
+        editorVehicle.putString("vehicle", json);
+        editorVehicle.apply();
+
+
         Intent intent = new Intent(this, BookingStep1Activity.class);
-        intent.putExtra("vehicle", clickVehicle);
-        /*intent.putExtra("beginBooking", strBeginBooking);
-        intent.putExtra("endOfBooking", strEndOfBooking);
-        intent.putExtra("numberOfDays", strNumberOfDays);*/
         startActivity(intent);
     }
 

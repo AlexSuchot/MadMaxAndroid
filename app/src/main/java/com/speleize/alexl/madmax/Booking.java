@@ -1,7 +1,5 @@
 package com.speleize.alexl.madmax;
 
-import java.util.Date;
-
 public class Booking {
     public String nom;
     public String image;

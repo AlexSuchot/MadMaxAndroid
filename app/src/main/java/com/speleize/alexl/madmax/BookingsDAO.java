@@ -2,11 +2,8 @@ package com.speleize.alexl.madmax;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -119,19 +116,11 @@ public class BookingsDAO
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
-        Log.i("Bigeard", "Coucou");
-        Log.i("Bigeard", String.valueOf(listBooking));
-
         for (int i = 0; i < listBooking.size(); i++) {
-            Log.i("Bigeard", "In for");
-
             Date dateEnd = format.parse(listBooking.get(i).end);
             Date dateToday = format.parse(today);
 
-            Log.i("Bigeard", String.valueOf(dateEnd));
-            Log.i("Bigeard", String.valueOf(dateToday));
             if ( dateEnd.getTime() < dateToday.getTime() ){
-                Log.i("Bigeard", "getOutDate: Delete");
                 db.delete(BaseContrat.BookingsContrat.TABLE_TABLE_BOOKING, BaseContrat.BookingsContrat.COLONNE_NOM + "=?", new String[]{listBooking.get(i).nom});
             }
         }
