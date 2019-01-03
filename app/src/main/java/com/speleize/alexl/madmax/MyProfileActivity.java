@@ -58,7 +58,7 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (profilDate.hasFocus()) {
-                    profilDate.setHint("dd/MM/yyyy");
+                    profilDate.setHint("JJ/MM/AAAA");
                 } else {
                     profilDate.setHint("Enter your date of birth :");
                 }

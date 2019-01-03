@@ -3,8 +3,10 @@ package com.speleize.alexl.madmax;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +44,8 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     private String NumberOfDays;
     private List<Vehicle> listVehicle = new ArrayList<>();
     private List<Vehicle> listVehiclePromotion = new ArrayList<>();
+
+    private Boolean buttonActif = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +161,22 @@ public class SearchVehiculeActivity extends AppCompatActivity {
     }
 
     public void onClickFilter(View view) {
+        Button filter = findViewById(R.id.filter);
+
+        if(buttonActif){
+            filter.animate()
+                    .translationYBy(180f);
+            buttonActif = false;
+        }  else {
+            filter.animate()
+                    .translationYBy(-180f);
+            buttonActif = true;
+        }
+
+//        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+//        filter.startAnimation(fadeIn);
+
+
 
 //        Animation page_slide_vertical_back = AnimationUtils.loadAnimation(getApplicationContext(),
 //                R.anim.page_slide_vertical_back);
@@ -164,13 +184,21 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 //        Animation page_slide_vertical_out = AnimationUtils.loadAnimation(getApplicationContext(),
 //                R.anim.page_slide_vertical_out);
 
-        Button filter = findViewById(R.id.filter);
-        LinearLayout filter_block = findViewById(R.id.filter_block);
+//        LinearLayout filter_block = findViewById(R.id.filter_block);
+        
+//
+//        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+//        SearchVehiculeActivity.startAnimation(fadeIn);
 
-        Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.line_translate_up);
-        filter.startAnimation(localAnimation);
-        filter_block.startAnimation(localAnimation);
 
+
+//        Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.line_translate_up);
+//        filter.startAnimation(localAnimation);
+//        filter_block.startAnimation(localAnimation);
+
+
+//        filter_block.animate()
+//                .translationYBy(-170f);
 
 //        filter.startAnimation(page_slide_vertical_out);
 
@@ -186,5 +214,4 @@ public class SearchVehiculeActivity extends AppCompatActivity {
 
 //        AnimatorSet anim = (AnimatorSet) AnimatorInflater.loadAnimator(SearchVehiculeActivity.this, R.animator.up_filter);
     }
-
 }

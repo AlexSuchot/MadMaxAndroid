@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (beginBooking.hasFocus()) {
-                    beginBooking.setHint("dd/MM/yyyy");
+                    beginBooking.setHint("JJ/MM/AAAA");
                 } else {
                     beginBooking.setHint("Date de début de réservation");
                 }
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (endOfBooking.hasFocus()) {
-                    endOfBooking.setHint("dd/MM/yyyy");
+                    endOfBooking.setHint("JJ/MM/AAAA");
                 } else {
                     endOfBooking.setHint("Date de fin de réservation");
                 }
@@ -145,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("beginBooking", strBeginBooking);
                         editor.putString("endOfBooking", strEndOfBooking);
                         editor.putString("daysBetween", strNumberOfDays);
-                        //editor.putLong("userAge", age);
                         editor.apply();
 
                         // INTENT :

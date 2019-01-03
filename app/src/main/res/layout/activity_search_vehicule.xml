@@ -23,8 +23,8 @@
         android:background="@android:color/white"
         android:textColor="@android:color/black"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toTopOf="@id/filter_block" />
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <LinearLayout
         android:id="@+id/filter_block"
@@ -33,7 +33,7 @@
         android:background="@android:color/white"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        app:layout_constraintTop_toTopOf="@id/filter">
 
         <Switch
             android:id="@+id/promotion_switch"
@@ -43,8 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="En promotion uniquement"
-            />
+            android:text="En promotion uniquement" />
 
     </LinearLayout>
 
