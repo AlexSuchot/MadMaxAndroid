@@ -161,12 +161,10 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(this, "La location ne peut pas être après la date de fin de location.", Toast.LENGTH_SHORT).show();
                         }
-                    } else if(dateBegin.before(currentDate)){
+                    } else if (dateBegin.before(currentDate)) {
                         Toast.makeText(this, "La location ne peut pas être avant la date d'aujourd'hui.", Toast.LENGTH_SHORT).show();
 
-                    }
-
-                    else if (!beginMatcher.matches()) {
+                    } else if (!beginMatcher.matches()) {
                         beginBooking.setError("Mauvais format de date !");
                     } else if (!endMatcher.matches()) {
                         endOfBooking.setError("Mauvais format de date !");
@@ -174,13 +172,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-                } catch(ParseException e){
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            } else{
-                Toast.makeText(this, "Age minimum requis : 21 ans.", Toast.LENGTH_LONG).show();
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
+        } else {
+            Toast.makeText(this, "Age minimum requis : 21 ans.", Toast.LENGTH_LONG).show();
         }
-
     }
+
+}

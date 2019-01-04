@@ -23,13 +23,35 @@ public class BookingStep2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_step2);
 
+
+        // sauvegarder le mssage si on retourne en arrière :
+
+        // SHARED PREFERENCES :
+        // Tentative de récupérer
+        /*
+        EditText getMessage = findViewById(R.id.message);
+        String strGetMessage =  getMessage.getText().toString();
+
+
+        SharedPreferences getMessagePref;
+        getMessagePref = getSharedPreferences("getMessage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = getMessagePref.edit();
+        editor.putString("message", strGetMessage);
+        editor.apply();
+        String getMessageIfBack = getMessagePref.getString("endOfBooking", strGetMessage);
+        getMessage.setText(getMessageIfBack);*/
+
+
+        // getMessage.setText(message);
+
+
         vehicle = (Vehicle) getIntent().getSerializableExtra("vehicle");
 
         Bundle extras = getIntent().getExtras();
         SharedPreferences getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
         BeginBooking = getRentingDate.getString("beginBooking", "");
         EndOfBooking = getRentingDate.getString("endOfBooking", "");
-        NumberOfDays = getRentingDate.getString("daysBetween","");
+        NumberOfDays = getRentingDate.getString("daysBetween", "");
 
         SharedPreferences getPrice = getSharedPreferences("toBookingStep2Activity", Context.MODE_PRIVATE);
         strOptionsPrix = getPrice.getString("optionsPrix", "");
