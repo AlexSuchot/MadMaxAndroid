@@ -60,7 +60,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 if (profilDate.hasFocus()) {
                     profilDate.setHint("JJ/MM/AAAA");
                 } else {
-                    profilDate.setHint("Enter your date of birth :");
+                    profilDate.setHint("Entrez votre date de naissance :");
                 }
             }
         });
@@ -69,7 +69,7 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (profilLastName.hasFocus()) {
-                    profilLastName.setHint("Enter your name :");
+                    profilLastName.setHint("Entrez votre nom :");
                 }
             }
         });
@@ -78,7 +78,7 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (profilFirstName.hasFocus()) {
-                    profilFirstName.setHint("Enter your firstname :");
+                    profilFirstName.setHint("Entrez votre prénom :");
                 }
             }
         });
@@ -130,15 +130,15 @@ public class MyProfileActivity extends AppCompatActivity {
                     editor.putLong("userAge", age);
                     editor.apply();
 
-                    Toast.makeText(this, "Profile successfully update ! ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Profil mis a jour ! ", Toast.LENGTH_SHORT).show();
 
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "Wrong date of birth, can't be set after the current date.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "La date de naissance ne peut pas être après la date d'aujourd'hui.", Toast.LENGTH_SHORT).show();
                 }
 
             } else if (!matcher.matches()) {
-                profilDate.setError("Wrong date format !");
+                profilDate.setError("Mauvais format de date !");
             }
 
         } catch (ParseException e) {

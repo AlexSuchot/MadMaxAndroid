@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         String beginBookingDate = getRentingDate.getString("beginBooking", "");
         String endOfBookingDate = getRentingDate.getString("endOfBooking", "");
-        strNumberOfDays = getRentingDate.getString("daysBetween","");
+        strNumberOfDays = getRentingDate.getString("daysBetween", "");
 
 
         // SHARED PREFERENCES DU PROFIL :
@@ -126,49 +126,61 @@ public class MainActivity extends AppCompatActivity {
 
                     Date dateBegin = format.parse(strBeginBooking);
                     Date dateEnd = format.parse(strEndOfBooking);
+                    Date currentDate = new Date();
 
-                    if (dateBegin.before(dateEnd)) {
+                    // On vérifie que la date d'aujourd'hui soit avant la date de réservation :
+                    if (dateBegin.after(currentDate)) {
 
-                        Log.i("Bigeard", String.valueOf(dateBegin));
-                        Log.i("Bigeard", String.valueOf(dateEnd));
+                        // On vérifie que la date de réservation de début est avant la date de fin de réservation :
+                        if (dateBegin.before(dateEnd)) {
 
-                        long numberOfDays = ((dateEnd.getTime() - dateBegin.getTime()) / (1000 * 60 * 60 * 24));
+                            Log.i("Bigeard", String.valueOf(dateBegin));
+                            Log.i("Bigeard", String.valueOf(dateEnd));
 
-                        strNumberOfDays = String.valueOf(numberOfDays);
+                            long numberOfDays = ((dateEnd.getTime() - dateBegin.getTime()) / (1000 * 60 * 60 * 24));
 
-                        Log.i("Bigeard", strNumberOfDays);
+                            strNumberOfDays = String.valueOf(numberOfDays);
 
-                        // SHARED PREFERENCES :
-                        SharedPreferences getRentingDate;
-                        getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = getRentingDate.edit();
-                        editor.putString("beginBooking", strBeginBooking);
-                        editor.putString("endOfBooking", strEndOfBooking);
-                        editor.putString("daysBetween", strNumberOfDays);
-                        editor.apply();
+                            Log.i("Bigeard", strNumberOfDays);
 
-                        // INTENT :
-                        Intent intent = new Intent(this, SearchVehiculeActivity.class);
-                        intent.putExtra("beginBooking", strBeginBooking);
-                        intent.putExtra("endOfBooking", strEndOfBooking);
-                        intent.putExtra("numberOfDays", strNumberOfDays);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(this, "First day of location can't be set after the last day.", Toast.LENGTH_SHORT).show();
+                            // SHARED PREFERENCES :
+                            SharedPreferences getRentingDate;
+                            getRentingDate = getSharedPreferences("prefRentingDate", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = getRentingDate.edit();
+                            editor.putString("beginBooking", strBeginBooking);
+                            editor.putString("endOfBooking", strEndOfBooking);
+                            editor.putString("daysBetween", strNumberOfDays);
+                            editor.apply();
+
+                            // INTENT :
+                            Intent intent = new Intent(this, SearchVehiculeActivity.class);
+                            intent.putExtra("beginBooking", strBeginBooking);
+                            intent.putExtra("endOfBooking", strEndOfBooking);
+                            intent.putExtra("numberOfDays", strNumberOfDays);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(this, "La location ne peut pas être après la date de fin de location.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if(dateBegin.before(currentDate)){
+                        Toast.makeText(this, "La location ne peut pas être avant la date d'aujourd'hui.", Toast.LENGTH_SHORT).show();
+
                     }
-                } else if (!beginMatcher.matches()) {
-                    beginBooking.setError("Wrong date format !");
-                } else if (!endMatcher.matches()) {
-                    endOfBooking.setError("Wrong date format !");
+
+                    else if (!beginMatcher.matches()) {
+                        beginBooking.setError("Mauvais format de date !");
+                    } else if (!endMatcher.matches()) {
+                        endOfBooking.setError("Mauvais format de date !");
+                    }
                 }
 
 
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                } catch(ParseException e){
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else{
+                Toast.makeText(this, "Age minimum requis : 21 ans.", Toast.LENGTH_LONG).show();
             }
-        } else {
-            Toast.makeText(this, "Required age is 21.", Toast.LENGTH_LONG).show();
         }
+
     }
-}
